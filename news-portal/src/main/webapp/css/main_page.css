@@ -1,0 +1,73 @@
+body{
+	margin: 0;
+}
+
+h1 {
+	text-align: center;	
+	font: italic;
+}
+
+.header {
+	display: flex;
+    justify-content: space-between;
+	background-color: gray;
+	height: 70px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.header .title{
+	width: 80%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header .controls{
+	display: flex;
+    width: 20%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.user-info{
+	width: 100%;
+    text-align: right;
+}
+
+.user-info h3{
+	margin:0;
+}
+
+.controls .buttons-block{
+	display: flex;
+    width: 100%;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+#locale-select{
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.main-content{
+	padding: 70px 144px 0;
+}
+td{
+	width: 200px;
+	height: 200px;
+}
+
+table{
+	margin-right: -50px;
+}
+
+.text-left{
+	text-align: left;
+}

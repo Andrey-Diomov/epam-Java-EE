@@ -1,0 +1,23 @@
+h1 {
+	text-align: center;	
+	font: italic;
+}
+
+.header {
+	background-color: gray;
+	height: 100px;
+}
+
+.en_button {
+	margin-left: 50px;
+	margin-top: -23px;	
+}
+
+.registration_form{
+	 margin:0, auto;    
+	 text-align: center;
+}
+
+.registration_form input{
+	margin: 2px 0;
+}
