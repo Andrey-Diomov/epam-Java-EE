@@ -1,8 +1,8 @@
-package by.diomov.newsportal.service.impl.validator;
+package by.diomov.newsportal.service.exception;
 
-public class ValidationException extends Exception {
+public class ValidationException extends ServiceException {
 	private static final long serialVersionUID = 1L;
-
+		
 	public ValidationException() {
 		super();
 	}

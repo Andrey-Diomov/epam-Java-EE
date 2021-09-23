@@ -6,7 +6,7 @@ import by.diomov.newsportal.dao.CommentDAO;
 import by.diomov.newsportal.dao.DAOException;
 import by.diomov.newsportal.dao.DAOProvider;
 import by.diomov.newsportal.service.CommentService;
-import by.diomov.newsportal.service.ServiceException;
+import by.diomov.newsportal.service.exception.ServiceException;
 
 public class CommentSeviceImpl implements CommentService {
 	private static final DAOProvider provider = DAOProvider.getInstance();

@@ -1,4 +1,4 @@
-package by.diomov.newsportal.service;
+package by.diomov.newsportal.service.exception;
 
 public class ServiceException extends Exception {
 

@@ -124,22 +124,6 @@ public class NewsDAOImplTest {
 		assertEquals(2, listOfNews.size());
 	}
 
-//	@Test
-//	public void testUpdate() {
-//
-//		int userId = insertUser("Andrey", "Diomov", "andrey-diomov@mail.ru", "Karapyz", "Sirena-25", Role.USER);
-//
-//		int newsId = insertNews("Economy", "Economy of our country", "The economy must be economical!", userId);
-//
-//		News news = getNewsById(newsId);
-//
-//		news.setTitle("Updated_Title");
-//
-//		newsDAO.update(news);
-//
-//		assertItem(news, connection, itemId);
-//	}
-
 	private static int insertUser(String name, String surname, String eMail, String login, String password, Role role)
 			throws SQLException, ConnectionPoolException {
 		try (Connection con = connectionPool.takeConnection();

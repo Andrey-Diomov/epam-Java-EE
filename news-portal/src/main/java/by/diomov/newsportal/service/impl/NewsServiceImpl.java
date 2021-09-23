@@ -8,7 +8,7 @@ import by.diomov.newsportal.dao.DAOException;
 import by.diomov.newsportal.dao.DAOProvider;
 import by.diomov.newsportal.dao.NewsDAO;
 import by.diomov.newsportal.service.NewsService;
-import by.diomov.newsportal.service.ServiceException;
+import by.diomov.newsportal.service.exception.ServiceException;
 
 public class NewsServiceImpl implements NewsService {
 	private static final DAOProvider provider = DAOProvider.getInstance();
