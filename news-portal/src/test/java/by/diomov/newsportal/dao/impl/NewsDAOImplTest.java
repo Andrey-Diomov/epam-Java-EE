@@ -164,28 +164,4 @@ public class NewsDAOImplTest {
 			return rs.getInt(1);
 		}
 	}
-
-	private static News getNewsById(int id) throws SQLException, ConnectionPoolException {
-		try (Connection con = connectionPool.takeConnection();
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery("SELECT * FROM Item WHERE ID = " + id)) {
-			if (rs.next()) {
-				return new News(rs.getInt("id"), rs.getString("title"), rs.getString("brief"), rs.getString("content"),
-						rs.getInt("userId"));
-			} else {
-				return null;
-			}
-		}
-	}
-
-// private static void assertNews(News news, Connection connection, int id)
-// throws SQLException {
-//		Statement statement = connection.createStatement();
-//		ResultSet rs = statement.executeQuery("SELECT * FROM Item WHERE ID = " + id);
-//
-//		rs.next();
-//		assertEquals(item.getName(), rs.getString("name"));
-//		assertEquals(item.getCreated(), rs.getDate("created"));
-//		assertEquals(item.getCategoryId(), rs.getLong("categoryId"));
-//	}
 }
