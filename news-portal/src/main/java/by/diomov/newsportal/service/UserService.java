@@ -1,8 +1,7 @@
 package by.diomov.newsportal.service;
 
 import by.diomov.newsportal.bean.User;
-import by.diomov.newsportal.service.exception.ServiceException;
-import by.diomov.newsportal.service.exception.ValidationException;
+import by.diomov.newsportal.service.impl.validator.ValidationException;
 import by.diomov.newsportal.bean.RegistrationInfo;
 
 public interface UserService {

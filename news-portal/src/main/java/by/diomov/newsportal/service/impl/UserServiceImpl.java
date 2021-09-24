@@ -5,10 +5,10 @@ import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.dao.DAOException;
 import by.diomov.newsportal.dao.DAOProvider;
 import by.diomov.newsportal.dao.UserDAO;
+import by.diomov.newsportal.service.ServiceException;
 import by.diomov.newsportal.service.UserService;
-import by.diomov.newsportal.service.exception.ServiceException;
-import by.diomov.newsportal.service.exception.ValidationException;
 import by.diomov.newsportal.service.impl.validator.UserValidator;
+import by.diomov.newsportal.service.impl.validator.ValidationException;
 
 public class UserServiceImpl implements UserService {
 	private static final DAOProvider provider = DAOProvider.getInstance();

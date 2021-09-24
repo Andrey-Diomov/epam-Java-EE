@@ -1,6 +1,7 @@
 package by.diomov.newsportal.dao.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +45,7 @@ public class NewsDAOImplTest {
 
 	@Test
 	public void testGetById() throws SQLException, ConnectionPoolException, DAOException {
-		int userId = insertUser("Andrey", "Diomov", "andrey-diomov@mail.ru", "Karapyz", "Sirena-25", Role.USER);
+		int userId = insertUser("Andrey", "Diomov", "andrey-diomov@mail.ru", "Karapy", "Sirena25", Role.USER);
 
 		insertNews("First_Title", "First_Brief", "First_Content", userId);
 		int newsId = insertNews("Second_Title", "Second_Brief", "Second_Content", userId);
@@ -59,7 +60,7 @@ public class NewsDAOImplTest {
 
 	@Test
 	public void testSave() throws SQLException, ConnectionPoolException, DAOException {
-		int userId = insertUser("Andrey", "Diomov", "andrey-diomov@mail.ru", "Karapyz", "Sirena-25", Role.USER);
+		int userId = insertUser("Andy", "Diomov", "arey-diomov@mail.ru", "arapyz", "Sirena-25", Role.USER);
 
 		News news = new News("Economy", "Economy of our country", "The economy must be economical!", userId);
 
