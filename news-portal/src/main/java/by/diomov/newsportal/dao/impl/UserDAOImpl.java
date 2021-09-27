@@ -109,10 +109,7 @@ public class UserDAOImpl implements UserDAO {
 			throw new DAOException("An error occurred while trying to get user registration data, UserDAOImpl", e);
 		}
 	}
-
-	@Override
-	public void updateLogin(String login) throws DAOException {
-	}
+	
 
 	@Override
 	public void updatePassword(int userId, String password) throws DAOException {

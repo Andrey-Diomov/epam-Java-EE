@@ -8,9 +8,7 @@ public interface UserService {
 
 	boolean registration(RegistrationInfo info) throws ServiceException, ValidationException;
 
-	User authorization(String login, String password) throws ServiceException, ValidationException;
-
-	void updateLogin(String login) throws ServiceException;
+	User authorization(String login, String password) throws ServiceException, ValidationException;	
 
 	void updatePassword(int userId, String password) throws ServiceException;
 

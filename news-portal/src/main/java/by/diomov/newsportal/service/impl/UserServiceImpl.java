@@ -44,15 +44,7 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	@Override
-	public void updateLogin(String login) throws ServiceException {
-		try {
-			userDAO.updateLogin(login);
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-	}
-
+	
 	@Override
 	public void updatePassword(int userId, String password) throws ServiceException {
 		try {
