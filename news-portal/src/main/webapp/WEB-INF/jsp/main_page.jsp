@@ -11,12 +11,9 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local" var="loc" />
-<fmt:message bundle="${loc}" key="local.title_site"
-	var="title_site" />
-<fmt:message bundle="${loc}" key="local.ru_button"
-	var="ru_button" />
-<fmt:message bundle="${loc}" key="local.en_button"
-	var="en_button" />
+<fmt:message bundle="${loc}" key="local.title_site" var="title_site" />
+<fmt:message bundle="${loc}" key="local.ru_button" var="ru_button" />
+<fmt:message bundle="${loc}" key="local.en_button" var="en_button" />
 <fmt:message bundle="${loc}" key="local.main_page.registration"
 	var="registration_button" />
 <fmt:message bundle="${loc}" key="local.main_page.authorization"
@@ -29,6 +26,9 @@
 	var="add_button" />
 <fmt:message bundle="${loc}" key="local.main_page.user_profile"
 	var="user_profile" />
+<fmt:message bundle="${loc}" key="local.main_page.favourite_news_button"
+	var="favourite_news_button" />
+
 </head>
 
 <body>
@@ -40,13 +40,13 @@
 			</h1>
 		</div>
 		<div class="controls">
-		
+
 			<div class="user-info">
 				<h3>
 					<c:out value="${user.login }" />
 				</h3>
 			</div>
-			
+
 			<div class="buttons-block">
 				<form action="Controller" method="POST">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
@@ -55,6 +55,7 @@
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
+
 				<c:if test="${user.role =='GUEST'}">
 					<div class="registration_button">
 						<form action="Controller" method="post">
@@ -69,7 +70,8 @@
 						</form>
 					</div>
 				</c:if>
-				<c:if test="${user.role eq 'ADMIN'}">
+
+				<c:if test="${user.role == 'ADMIN'}">
 					<div class="add_button">
 						<form action="Controller" method="post">
 							<input type="hidden" name="command" value="go_to_add_news_page" />
@@ -77,6 +79,7 @@
 						</form>
 					</div>
 				</c:if>
+
 				<c:if test="${user.role !='GUEST'}">
 					<div class="log_out_button">
 						<form action="Controller" method="post">
@@ -84,14 +87,22 @@
 								type="submit" name="command" value="${log_out_button}" />
 						</form>
 					</div>
-					
+
 					<div class="view_profile">
 						<form action="Controller" method="post">
-							<input type=hidden name="command" value="GO_TO_USER_PROFILE" /> <input
-								type="submit" name="command" value="${user_profile}" />
+							<input type=hidden name="command" value="GO_TO_USER_PROFILE" />
+							<input type="submit" name="command" value="${user_profile}" />
 						</form>
 					</div>
-										
+
+					<div class="favourite_news">
+						<form action="Controller" method="post">
+							<input type=hidden name="command"
+								value="GO_TO_FAVOURITE_NEWS_PAGE" /> <input type="submit"
+								name="command" value="${favourite_news_button}" />
+						</form>
+					</div>
+
 				</c:if>
 			</div>
 		</div>
@@ -104,8 +115,13 @@
 	<br>
 	<div class="main-content">
 		<c:forEach var="news" items="${newsList}">
-			<h2>${news.title}</h2>
-			<h3>${news.brief}</h3>
+			<h2>
+				<c:out value="${news.title}" />
+			</h2>
+
+			<h3>
+				<c:out value="${news.brief}" />
+			</h3>
 			<c:if test="${user.role !='GUEST'}">
 				<form action="Controller" method="post">
 					<input type="hidden" name="idNews" value="${news.id}" /> <input

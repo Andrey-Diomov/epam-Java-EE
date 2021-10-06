@@ -6,11 +6,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.diomov.newsportal.controller.impl.AddComment;
 import by.diomov.newsportal.controller.impl.AddNews;
+import by.diomov.newsportal.controller.impl.AddNewsToFavourite;
 import by.diomov.newsportal.controller.impl.ChangeLocal;
 import by.diomov.newsportal.controller.impl.DeleteNews;
+import by.diomov.newsportal.controller.impl.DeleteNewsFromFavourite;
 import by.diomov.newsportal.controller.impl.GoToAddCommentPage;
 import by.diomov.newsportal.controller.impl.GoToAddNewsPage;
 import by.diomov.newsportal.controller.impl.GoToAuthorizationPage;
+import by.diomov.newsportal.controller.impl.GoToFavouriteNewsPage;
 import by.diomov.newsportal.controller.impl.GoToMainPage;
 import by.diomov.newsportal.controller.impl.GoToReadCommentsPage;
 import by.diomov.newsportal.controller.impl.GoToReadNewsPage;
@@ -45,22 +48,25 @@ public class CommandProvider {
 		commands.put(CommandName.ADD_COMMENT, new AddComment());
 		commands.put(CommandName.GO_TO_READ_COMMENTS_PAGE, new GoToReadCommentsPage());
 		commands.put(CommandName.GO_TO_USER_PROFILE, new GoToUserProfile());
+		commands.put(CommandName.ADD_NEWS_TO_FAVOURITE, new AddNewsToFavourite());
+		commands.put(CommandName.GO_TO_FAVOURITE_NEWS_PAGE, new GoToFavouriteNewsPage());
+		commands.put(CommandName.DELETE_NEWS_FROM_FAVOURITE, new DeleteNewsFromFavourite());
 
 		commands.put(CommandName.UNKNOWN_COMMAND, new UnknownCommand());
 	}
 
 	public Command findCommand(String name) {
-		if (name == null || name.isEmpty() || name.isBlank()) {
-			name = CommandName.UNKNOWN_COMMAND.toString();
-		}
+//		if (name == null || name.isEmpty() || name.isBlank()) {
+//			name = CommandName.UNKNOWN_COMMAND.toString();
+//		}
 
-		CommandName commandName;
-		try {
-			commandName = CommandName.valueOf(name.toUpperCase());
-		} catch (IllegalArgumentException e) {
-			log.error(e);
-			commandName = CommandName.UNKNOWN_COMMAND;
-		}
+		CommandName commandName= CommandName.valueOf(name.toUpperCase());
+//		try {
+//			commandName = CommandName.valueOf(name.toUpperCase());
+//		} catch (IllegalArgumentException e) {
+//			log.error(e);
+//			commandName = CommandName.UNKNOWN_COMMAND;
+//		}
 
 		Command command = commands.get(commandName);
 		return command;

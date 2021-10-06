@@ -37,10 +37,10 @@ public class AddComment implements Command {
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
 
-		if (Role.GUEST.equals(user.getRole())) {
-			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-			return;
-		}
+//		if (Role.GUEST.equals(user.getRole())) {
+//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+//			return;
+//		}
 
 		String text = request.getParameter(TEXT_PARAMETER);
 		int newsId = Integer.valueOf(request.getParameter(ID_NEWS_PARAM));

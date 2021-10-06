@@ -24,12 +24,12 @@ public class GoToAddNewsPage implements Command {
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
 
-		if (!Role.ADMIN.equals(user.getRole())) {
-			user.setRole(Role.GUEST);
-			session.setAttribute(USER_ATTRIBUTE, user);
-			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-			return;
-		}
+//		if (!Role.ADMIN.equals(user.getRole())) {
+//			user.setRole(Role.GUEST);
+//			session.setAttribute(USER_ATTRIBUTE, user);
+//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+//			return;
+//		}
 		session.setAttribute(PATH_ATTRIBUTE, COMMAND);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_ADD_NEWS_PAGE);
 		requestDispatcher.forward(request, response);

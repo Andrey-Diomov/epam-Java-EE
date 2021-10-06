@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<properties>
+		<Property name="filename">logs/log.log</Property>
+		<Property name="patternLayout">%d{DATE} [%-5p] (%F:%L) - %m%n</Property>
+
+	</properties>
+	<appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="${patternLayout}" />
+		</Console>
+		<File filename="${filename}" name="FILELOG">
+			<PatternLayout pattern="${patternLayout}" />
+		</File>
+
+	</appenders>
+	<loggers>
+		<logger name="by.diomov.newsportal.controller" additivity="false">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="FILELOG" />
+		</logger>
+		<root level="warn">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="FILELOG" />
+		</root>
+	</loggers>
+</configuration>

@@ -27,6 +27,8 @@ public class GoToMainPage implements Command {
 	private static final String COMMAND = "Go_To_Main_Page";
 	private static final String PATH_ATTRIBUTE = "path";
 	private static final String NEWS_ATTRIBUTE = "newsList";
+	private static final String NEWS_FAVOURITE_ATTRIBUTE = "favourite";
+	private static final boolean FAVOURITE = false;
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +40,8 @@ public class GoToMainPage implements Command {
 			request.setAttribute(NEWS_ATTRIBUTE, newsList);
 
 			session.setAttribute(PATH_ATTRIBUTE, COMMAND);
-
+			session.setAttribute(NEWS_FAVOURITE_ATTRIBUTE, FAVOURITE);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_MAIN_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

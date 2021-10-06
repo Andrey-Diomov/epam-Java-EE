@@ -38,12 +38,12 @@ public class AddNews implements Command {
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
 
-		if (!Role.ADMIN.equals(user.getRole())) {
-			user.setRole(Role.GUEST);
-			session.setAttribute(USER_ATTRIBUTE, user);
-			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-			return;
-		}
+//		if (!Role.ADMIN.equals(user.getRole())) {
+//			user.setRole(Role.GUEST);
+//			session.setAttribute(USER_ATTRIBUTE, user);
+//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+//			return;
+//		}
 
 		String title = request.getParameter(TITLE_PARAMETER);
 		String brief = request.getParameter(BRIEF_PARAMETER);

@@ -13,14 +13,19 @@ import by.diomov.newsportal.dao.DAOException;
 import by.diomov.newsportal.dao.NewsDAO;
 import by.diomov.newsportal.dao.impl.connection.ConnectionPool;
 import by.diomov.newsportal.dao.impl.connection.ConnectionPoolException;
+import jakarta.servlet.jsp.jstl.sql.Result;
 
 public class NewsDAOImpl implements NewsDAO {
 	private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 	private static final String SQL_REQUEST_TO_INSERT_NEWS = "INSERT INTO news(title, brief, content, userId) VALUE(?,?,?,?)";
+	private static final String SQL_REQUEST_TO_INSERT_NEWS_TO_FAVOURITE = "INSERT INTO favourite_news(userId, newsId) VALUE(?,?)";
+	private static final String SQL_REQUEST_TO_DELETE_NEWS_FROM_FAVOURITE = "DELETE FROM favourite_news WHERE userId=? AND newsId=?";
 	private static final String SQL_REQUEST_TO_UPDATE_NEWS_BY_ID = "UPDATE news SET title=?, brief =?, content= ?, userId =? WHERE id =?";
 	private static final String SQL_REQUEST_TO_DELETE_NEWS_BY_ID = "DELETE FROM news WHERE id=?";
-	private static final String SQL_REQUEST_TO_SELECT_ALL_NEWS = "SELECT * FROM news";
+	private static final String SQL_REQUEST_TO_SELECT_ALL_NEWS = "SELECT * FROM news ORDER BY id DESC";
+	private static final String SQL_REQUEST_TO_SELECT_FAVOURITE_NEWS = "SELECT news.id,News.title, News.brief, News.content,News.userId FROM News JOIN Favourite_News ON News.id=Favourite_news.newsId WHERE Favourite_News.userId=?";
 	private static final String SQL_REQUEST_TO_SELECT_NEWS_BY_ID = "SELECT * FROM news WHERE id=?";
+	private static final String SQL_REQUEST_TO_SELECT_BY_USER_ID_AND_NEWS_ID = "SELECT * FROM favourite_news WHERE userId=? AND newsId=?";
 
 	@Override
 	public void save(News news) throws DAOException {
@@ -76,7 +81,7 @@ public class NewsDAOImpl implements NewsDAO {
 
 			while (rs.next()) {
 				News news = new News(rs.getInt("id"), rs.getString("title"), rs.getString("brief"),
-						rs.getString("content"), rs.getInt("userId"));			
+						rs.getString("content"), rs.getInt("userId"));
 				list.add(news);
 			}
 			return list;
@@ -103,6 +108,63 @@ public class NewsDAOImpl implements NewsDAO {
 
 		} catch (SQLException | ConnectionPoolException e) {
 			throw new DAOException("Error occurred while trying to get news by id, NewsDAOImpl", e);
+		}
+	}
+
+	@Override
+	public void addToFavourite(int userId, int newsId) throws DAOException {
+		try (Connection con = connectionPool.takeConnection();
+				PreparedStatement prCheck = con.prepareStatement(SQL_REQUEST_TO_SELECT_BY_USER_ID_AND_NEWS_ID);
+				PreparedStatement prInsert = con.prepareStatement(SQL_REQUEST_TO_INSERT_NEWS_TO_FAVOURITE)) {
+
+			prCheck.setInt(1, userId);
+			prCheck.setInt(2, newsId);
+			ResultSet rs = prCheck.executeQuery();
+
+			if (!rs.next()) {
+				prInsert.setInt(1, userId);
+				prInsert.setInt(2, newsId);
+				prInsert.executeUpdate();
+			}
+
+		} catch (SQLException | ConnectionPoolException e) {
+			throw new DAOException("Error occurred while trying to add news to favourite, NewsDAOImpl", e);
+		}
+	}
+
+	@Override
+	public List<News> getFavourite(int userId) throws DAOException {
+		try (Connection con = connectionPool.takeConnection();
+				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_FAVOURITE_NEWS)) {
+
+			pr.setInt(1, userId);
+			ResultSet rs = pr.executeQuery();
+
+			List<News> list = new ArrayList<>();
+
+			while (rs.next()) {
+				News news = new News(rs.getInt("id"), rs.getString("title"), rs.getString("brief"),
+						rs.getString("content"), rs.getInt("userId"));
+				list.add(news);
+			}
+			return list;
+
+		} catch (SQLException | ConnectionPoolException e) {
+			throw new DAOException("Error occurred while trying to get favourite news, NewsDAOImpl", e);
+		}
+	}
+
+	@Override
+	public void deleteFromFavourite(int userId, int newsId) throws DAOException {
+		try (Connection con = connectionPool.takeConnection();
+				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_DELETE_NEWS_FROM_FAVOURITE)) {
+
+			pr.setInt(1, userId);
+			pr.setInt(2, newsId);
+			pr.executeUpdate();
+
+		} catch (SQLException | ConnectionPoolException e) {
+			throw new DAOException("Error occurred while trying to delete news from favourite, NewsDAOImpl", e);
 		}
 	}
 }

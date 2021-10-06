@@ -25,7 +25,7 @@ public class CommentDAOImpl implements CommentDAO {
 
 	private static final String ID = "id";
 	private static final String TEXT_COMMENT = "text";
-	private static final String CREATED_COMMENT = "created";
+	private static final String CREATED_COMMENT = "created"; 
 	private static final String ID_USER = "userId";
 	private static final String ID_NEWS = "newsId";
 

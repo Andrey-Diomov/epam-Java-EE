@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<div class="main-content">
-		<c:if test="${sessionScope.user !=null}">
+		
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="add_comment" /> <input
 					type="hidden" name="idNews" value="${idNews}" /> <br />
@@ -73,7 +73,7 @@
 					type="hidden" name="command" value="go_to_read_news_page" /> <input
 					type="submit" value="${back_to_news_button}" />
 			</form>
-		</c:if>
+		
 	</div>
 	<script>
 		document

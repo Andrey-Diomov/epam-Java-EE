@@ -25,10 +25,10 @@ public class GoToAddCommentPage implements Command {
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
 
-		if (Role.GUEST.equals(user.getRole())) {
-			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-			return;
-		}
+//		if (Role.GUEST.equals(user.getRole())) {
+//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+//			return;
+//		}
 
 		String newsId = request.getParameter(ID_NEWS_PARAM);
 		request.setAttribute(ID_NEWS_PARAM, newsId);

@@ -24,7 +24,7 @@ public class NewsServiceImpl implements NewsService {
 		}
 	}
 
-	@Override	
+	@Override
 	public void update(News news) throws ServiceException {
 		try {
 			newsDAO.update(news);
@@ -56,6 +56,33 @@ public class NewsServiceImpl implements NewsService {
 	public News get(int id) throws ServiceException {
 		try {
 			return newsDAO.get(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public void addToFavourite(int userId, int newsId) throws ServiceException {
+		try {
+			newsDAO.addToFavourite(userId, newsId);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<News> getFavourite(int userId) throws ServiceException {
+		try {
+			return newsDAO.getFavourite(userId);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public void deleteFromFavourite(int userId, int newsId) throws ServiceException {
+		try {
+			newsDAO.deleteFromFavourite(userId, newsId);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

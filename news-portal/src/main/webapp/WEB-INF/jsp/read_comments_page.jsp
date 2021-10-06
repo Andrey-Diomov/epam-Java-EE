@@ -54,20 +54,25 @@
 	</div>
 	<div class="main-content">
 
-		<c:if test="${user.role != 'GUEST'}">
-			<div align="center">
-				<p>${page}${pageNumber}</p>
-			</div>
-			<br />
-			<c:forEach var="comment" items="${comments}">
-				<p>
-					<b>${comment.user.login}</b> ${comment.created}
-				</p>
+		<div align="center">
+			<p>
+				<c:out value="${page}" />
+				<c:out value="${pageNumber}" />
+			</p>
+		</div>
+		<br />
+		<c:forEach var="comment" items="${comments}">
+			<p>
+				<b> <c:out value="${comment.user.login}" /> <c:out
+						value="${comment.created}" />
+				</b>
+			</p>
 
-				<p>${comment.text}</p>
-				<hr>
-			</c:forEach>
-		</c:if>
+			<p>
+				<c:out value="${comment.text}"/>
+			</p>
+			<hr>
+		</c:forEach>
 
 		<form action="Controller" method="post">
 			<input type="hidden" name="idNews" value="${idNews}" /> <input

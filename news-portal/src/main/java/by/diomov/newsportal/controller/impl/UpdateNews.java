@@ -38,11 +38,11 @@ public class UpdateNews implements Command {
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
 
-		if (!Role.ADMIN.equals(user.getRole())) {
-			session.removeAttribute(USER_ATTRIBUTE);
-			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-			return;
-		}
+//		if (!Role.ADMIN.equals(user.getRole())) {
+//			session.removeAttribute(USER_ATTRIBUTE);
+//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+//			return;
+//		}
 
 		int newsId = Integer.valueOf(request.getParameter(ID_NEWS_PARAM));
 		String title = request.getParameter(TITLE_PARAMETER);

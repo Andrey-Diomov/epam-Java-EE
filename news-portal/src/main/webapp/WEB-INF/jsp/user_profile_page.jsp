@@ -61,30 +61,27 @@
 		</div>
 	</div>
 	<div class="main-content">
-		<c:if test="${user.role != 'GUEST'}">
-			<br />
-			<h1>${profile}</h1>
+
+		<h1>${profile}</h1>
 
 
-			<h3>${name}</h3>
-			<c:out value="${info.name}" />
+		<h3>${name}</h3>
+		<c:out value="${info.name}" />
 
-			<h3>${surname}</h3>
-			<c:out value="${info.surname}" />
+		<h3>${surname}</h3>
+		<c:out value="${info.surname}" />
 
-			<h3>${eMail}</h3>
-			<c:out value="${info.eMail}" />
+		<h3>${eMail}</h3>
+		<c:out value="${info.eMail}" />
 
-			<h3>${login}</h3>
-			<c:out value="${info.login}" />
-			<br />
-			<br />
-			<form action="Controller" method="post">
-				<input type="hidden" name="command" value="UPDATE_USER_PROFILE" />
-				<input type="submit" value="${change_password_button}" />
-			</form>
+		<h3>${login}</h3>
+		<c:out value="${info.login}" />
+		<br /> <br />
+		<form action="Controller" method="post">
+			<input type="hidden" name="command" value="UPDATE_USER_PROFILE" /> <input
+				type="submit" value="${change_password_button}" />
+		</form>
 
-		</c:if>
 	</div>
 	<script>
 		document

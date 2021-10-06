@@ -78,7 +78,6 @@ public class ConnectionPool {
 		} catch (SQLException e) {
 			throw new ConnectionPoolException("SQLException in ConnectionPool", e);
 		}
-
 	}
 
 	public void dispose() throws ConnectionPoolException {

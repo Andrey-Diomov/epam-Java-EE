@@ -39,12 +39,12 @@ public class GoToUpdateNewsPage implements Command {
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
 
-		if (!Role.ADMIN.equals(user.getRole())) {
-			user.setRole(Role.GUEST);
-			session.setAttribute(USER_ATTRIBUTE, user);
-			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-			return;
-		}
+//		if (!Role.ADMIN.equals(user.getRole())) {
+//			user.setRole(Role.GUEST);
+//			session.setAttribute(USER_ATTRIBUTE, user);
+//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+//			return;
+//		}
 
 		int idNews = Integer.parseInt(request.getParameter(ID_NEWS_PARAM));
 

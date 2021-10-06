@@ -56,7 +56,9 @@
 			<c:out value="${param.message}" />
 		</p>
 		<form action="Controller" method="post">
-			<h3 class="headline">${table_header}</h3>
+			<h3 class="headline">
+				<c:out value="${table_header}" />
+			</h3>
 			<input type="hidden" name="command" value="sign_In" /> ${login} <br />
 			<input type="text" name="login" value="" /><br /> ${password} <br />
 			<input type="password" name="password" value="" /><br /> <input
