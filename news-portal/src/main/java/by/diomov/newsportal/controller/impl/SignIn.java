@@ -22,7 +22,7 @@ public class SignIn implements Command {
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final UserService userService = provider.getUserService();
 
-	private static final String PATH_TO_MAIN_PAGE = "Controller?command=Go_To_Main_Page";
+	private static final String PATH_TO_MAIN_PAGE_WITH_PARAMETR = "Controller?command=Go_To_Main_Page&pageNumber=1";
 	private static final String PATH_TO_AUTHIRIZATION_WITH_MESSAGE = "Controller?command=Authorization&message=%s";
 	private static final String PATH_TO_MAIN_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Main_Page&message=%s";
 
@@ -30,7 +30,7 @@ public class SignIn implements Command {
 	private static final String MESSAGE_TO_FILL_IN_FIELDS = "Please, Fill in all the fields!";
 	private static final String MESSAGE_ABOUT_INVALID_DATA = "The entered login and (or) password does not exist. Try again!";
 
-	private static final String USER_ATTRIBUTE = "user";
+	private static final String USER = "user";
 	private static final String LOGIN = "login";
 	private static final String PASSWORD = "password";
 
@@ -52,8 +52,8 @@ public class SignIn implements Command {
 				response.sendRedirect(String.format(PATH_TO_AUTHIRIZATION_WITH_MESSAGE, MESSAGE_ABOUT_INVALID_DATA));
 				return;
 			}
-			session.setAttribute(USER_ATTRIBUTE, user);
-			response.sendRedirect(PATH_TO_MAIN_PAGE);
+			session.setAttribute(USER, user);
+			response.sendRedirect(PATH_TO_MAIN_PAGE_WITH_PARAMETR);
 
 		} catch (ValidationException e) {
 			log.error("Error occurred while trying to authorizate user, SignIn", e);

@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import by.diomov.newsportal.bean.News;
-import by.diomov.newsportal.bean.Role;
 import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.controller.Command;
 import by.diomov.newsportal.service.NewsService;
@@ -23,28 +20,20 @@ public class AddNewsToFavourite implements Command {
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final NewsService newsService = provider.getNewsService();
 
-	private static final String PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Read_News_Page&idNews=%s";
-	private static final String PATH_TO_AUTHORIZATION_PAGE = "Controller?command=Go_To_Authorization_Page";	
+	private static final String PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Read_News_Page&idNews=%s";		
 	private static final String PATH_TO_MAIN_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Main_Page&message=%s";
 	private static final String MESSAGE_TEMPORARY_PROBLEMS = "Sorry, we're having problems.Please try again later";
-	private static final String USER_ATTRIBUTE = "user";
-	private static final String ID_NEWS_PARAM = "idNews";
+	private static final String USER = "user";
+	private static final String ID_NEWS = "idNews";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 
-		User user = (User) session.getAttribute(USER_ATTRIBUTE);
-
-//		if (!Role.USER.equals(user.getRole())) {
-//			user.setRole(Role.GUEST);
-//			session.setAttribute(USER_ATTRIBUTE, user);
-//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-//			return;
-//		}
+		User user = (User) session.getAttribute(USER);
 
 		int userId = user.getId();
-		int newsId = Integer.valueOf(request.getParameter(ID_NEWS_PARAM));
+		int newsId = Integer.valueOf(request.getParameter(ID_NEWS));
 
 		try {
 			newsService.addToFavourite(userId, newsId);

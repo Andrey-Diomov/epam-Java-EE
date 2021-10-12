@@ -11,7 +11,7 @@ import by.diomov.newsportal.service.ServiceException;
 public class CommentSeviceImpl implements CommentService {
 	private static final DAOProvider provider = DAOProvider.getInstance();
 	private final CommentDAO commentDAO = provider.getCommentDAO();
-	
+
 	@Override
 	public List<Comment> getLimitedListCommentsByNewsId(int from, int amount, int id) throws ServiceException {
 		try {
@@ -25,6 +25,15 @@ public class CommentSeviceImpl implements CommentService {
 	public void save(Comment comment) throws ServiceException {
 		try {
 			commentDAO.save(comment);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public int getAmountCommentsByNewsId(int id) throws ServiceException {
+		try {
+			return commentDAO.getAmountCommentsByNewsId(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

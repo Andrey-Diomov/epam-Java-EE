@@ -21,14 +21,15 @@ public class CommentDAOImpl implements CommentDAO {
 
 	private static final String SQL_REQUEST_TO_INSERT_COMMENT = "INSERT INTO comment(text, created, userId, newsId) VALUE(?,?,?,?)";
 	private static final String SQL_REQUEST_TO_SELECT_LIMITED_LIST_COMMENTS_BY_NEWS_ID = "SELECT Comment.id, text, created, userId, newsId, User.id, login, role  FROM comment JOIN User ON comment.userId=User.id WHERE newsId=? LIMIT ?, ?";
+	private static final String SQL_REQUEST_TO_SELECT_AMOUNT_COMMENTS_BY_NEWS_ID = "SELECT COUNT(*) AS amount FROM COmment WHERE newsId = ?";
 	private static final String SQL_REQUEST_TO_DELETE_COMMENTS_BY_NEWS_ID = "DELETE  FROM comment WHERE newsId=?";
 
 	private static final String ID = "id";
 	private static final String TEXT_COMMENT = "text";
-	private static final String CREATED_COMMENT = "created"; 
-	private static final String ID_USER = "userId";
-	private static final String ID_NEWS = "newsId";
-
+	private static final String CREATED_COMMENT = "created";
+	private static final String USER_ID = "userId";
+	private static final String NEWS_ID = "newsId";
+	private static final String AMOUNT = "amount";
 	private static final String LOGIN_USER = "login";
 	private static final String ROLE_USER = "role";
 
@@ -48,7 +49,7 @@ public class CommentDAOImpl implements CommentDAO {
 
 			while (rs.next()) {
 				Comment comment = new Comment(rs.getInt(ID), rs.getString(TEXT_COMMENT), rs.getDate(CREATED_COMMENT),
-						rs.getInt(ID_USER), rs.getInt(ID_NEWS), new User(rs.getInt(ID), rs.getString(LOGIN_USER),
+						rs.getInt(USER_ID), rs.getInt(NEWS_ID), new User(rs.getInt(ID), rs.getString(LOGIN_USER),
 								Role.valueOf(rs.getString(ROLE_USER).toUpperCase())));
 				list.add(comment);
 			}
@@ -84,6 +85,26 @@ public class CommentDAOImpl implements CommentDAO {
 
 		} catch (SQLException | ConnectionPoolException e) {
 			new DAOException("Error in deleteAllByNewsId, CommentDAOImpl", e);
+		}
+	}
+
+	@Override
+	public int getAmountCommentsByNewsId(int id) throws DAOException {
+
+		try (Connection con = connectionPool.takeConnection();
+				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_AMOUNT_COMMENTS_BY_NEWS_ID)) {
+
+			pr.setInt(1, id);
+			ResultSet rs = pr.executeQuery();
+
+			int amount = 0;
+			if (rs.next()) {
+				amount = rs.getInt(AMOUNT);
+			}
+			return amount;
+
+		} catch (SQLException | ConnectionPoolException e) {
+			throw new DAOException("Error in getAmountCommentsByNewsId, CommentDAOImpl", e);
 		}
 	}
 }

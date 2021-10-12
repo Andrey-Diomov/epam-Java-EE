@@ -12,25 +12,35 @@ public class User implements Serializable {
 	private String eMail;
 	private String login;
 	private Role role;
+	private boolean abilityToComment;
 
 	public User() {
 	}
 
-	public User(int id, String name, String surname, String eMail, String login, Role role) {
+	public User(int id, String name, String surname, String eMail, String login, Role role, boolean abilityToComment) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.eMail = eMail;
 		this.login = login;
 		this.role = role;
+		this.abilityToComment = abilityToComment;
 	}
 
 	public User(String name, String surname, String eMail, String login, Role role) {
-		this(0, name, surname, eMail, login, role);
+		this(0, name, surname, eMail, login, role, true);
 	}
 
 	public User(int id, String login, Role role) {
-		this(id, null, null, null, login, role);
+		this(id, null, null, null, login, role, true);
+	}
+
+	public boolean isAbilityToComment() {
+		return abilityToComment;
+	}
+
+	public void setAbilityToComment(boolean abilityToComment) {
+		this.abilityToComment = abilityToComment;
 	}
 
 	public int getId() {

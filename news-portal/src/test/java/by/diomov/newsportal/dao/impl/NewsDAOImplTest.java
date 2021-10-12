@@ -111,19 +111,19 @@ public class NewsDAOImplTest {
 		}
 	}
 
-	@Test
-	public void testGetAll() throws DAOException, SQLException, ConnectionPoolException {
-		List<News> listOfNews = newsDAO.getAll();
-		assertEquals(0, listOfNews.size());
-
-		int userId = insertUser("Andrey", "Diomov", "andrey-diomov@mail.ru", "Karapyz", "Sirena-25", Role.USER);
-
-		insertNews("Economy", "Economy of our country", "The economy must be economical!", userId);
-		insertNews("Politics", "Politics of our country", "Politics may be a controversial topic!", userId);
-
-		listOfNews = newsDAO.getAll();
-		assertEquals(2, listOfNews.size());
-	}
+//	@Test
+//	public void testGetAll() throws DAOException, SQLException, ConnectionPoolException {
+//		List<News> listOfNews = newsDAO.getAll();
+//		assertEquals(0, listOfNews.size());
+//
+//		int userId = insertUser("Andrey", "Diomov", "andrey-diomov@mail.ru", "Karapyz", "Sirena-25", Role.USER);
+//
+//		insertNews("Economy", "Economy of our country", "The economy must be economical!", userId);
+//		insertNews("Politics", "Politics of our country", "Politics may be a controversial topic!", userId);
+//
+//		listOfNews = newsDAO.getAll();
+//		assertEquals(2, listOfNews.size());
+//	}
 
 	private static int insertUser(String name, String surname, String eMail, String login, String password, Role role)
 			throws SQLException, ConnectionPoolException {

@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	
 	@Override
 	public void updatePassword(int userId, String password) throws ServiceException {
 		try {
@@ -58,6 +57,24 @@ public class UserServiceImpl implements UserService {
 	public RegistrationInfo getRegistrationInfo(int id) throws ServiceException {
 		try {
 			return userDAO.getRegistrationInfo(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean isBlockedToComment(int id) throws ServiceException {
+		try {
+			return userDAO.isBlockedToComment(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public void setAbilityToComment(boolean abilityToComment, int id) throws ServiceException {
+		try {
+			userDAO.setAbilityToComment(abilityToComment, id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

@@ -19,7 +19,7 @@
 	var="main_button" />
 <fmt:message bundle="${loc}" key="local.read_comments_page.next_button"
 	var="next_button" />
-<fmt:message bundle="${loc}" key="local.read_comments_page.page"
+<fmt:message bundle="${loc}" key="local.page"
 	var="page" />
 <fmt:message bundle="${loc}"
 	key="local.read_comments_page.to_read_news_page_button"
@@ -46,6 +46,7 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
+				<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="go_to_main_page">${main_button}</button>
 				</form>
@@ -54,10 +55,12 @@
 	</div>
 	<div class="main-content">
 
+
+
 		<div align="center">
 			<p>
 				<c:out value="${page}" />
-				<c:out value="${pageNumber}" />
+				<c:out value="${param.pageNumber}" />
 			</p>
 		</div>
 		<br />
@@ -69,24 +72,26 @@
 			</p>
 
 			<p>
-				<c:out value="${comment.text}"/>
+				<c:out value="${comment.text}" />
 			</p>
 			<hr>
 		</c:forEach>
 
 		<form action="Controller" method="post">
 			<input type="hidden" name="idNews" value="${idNews}" /> <input
-				type="hidden" name="pageNumber" value="${pageNumber}" /> <input
-				type="hidden" name="command" value="Go_To_Read_Comments_Page" />
-			<div>
-				<input type="submit" value="${next_button}" />
-			</div>
-		</form>
-		<form action="Controller" method="post">
-			<input type="hidden" name="idNews" value="${idNews}" /> <input
 				type="hidden" name="command" value="go_to_read_news_page" /> <input
 				type="submit" value="${back_to_news_button}" />
 		</form>
+
+		<div align="center">
+			<c:forEach begin="1" end="${amountPage}" step="1" varStatus="i">
+				<c:url value="Controller?command=GO_TO_READ_COMMENTS_PAGE" var="url">
+					<c:param name="pageNumber" value="${i.index}" />
+					<c:param name="idNews" value="${idNews}" />
+				</c:url>
+				<a href="${url}">${i.index}</a>
+			</c:forEach>
+		</div>
 
 	</div>
 	<script>

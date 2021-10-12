@@ -2,6 +2,7 @@ package by.diomov.newsportal.dao;
 
 import java.util.List;
 import by.diomov.newsportal.bean.News;
+import by.diomov.newsportal.service.ServiceException;
 
 public interface NewsDAO {
 
@@ -15,9 +16,17 @@ public interface NewsDAO {
 
 	News get(int id) throws DAOException;
 
-	List<News> getAll() throws DAOException;
+	// List<News> getAll() throws DAOException;
 
 	void addToFavourite(int userId, int newsId) throws DAOException;
 
-	List<News> getFavourite(int userId) throws DAOException;
+	List<News> getFavouritesLimitedList(int userId, int from, int amount) throws DAOException;
+
+	List<News> getLimitedList(int from, int amount) throws DAOException;
+
+	int getAmountNews() throws DAOException;
+
+	int getAmountFavouritesNewsByUserId(int id) throws DAOException;
+
+	List<News> findNewsByWordInTitle(String word) throws DAOException;
 }

@@ -18,14 +18,13 @@ import jakarta.servlet.http.HttpSession;
 public class SecurityFilter implements Filter {
 	private static final String PATH_TO_AUTHORIZATION_PAGE = "Controller?command=Go_To_Authorization_Page";
 	private static final String PATH_TO_ERROR_PAGE = "Controller?command=Unknown_Command";
-	private static final String PATH_TO_MAIN_PAGE = "Controller?command=Go_To_Main_Page";
-	private static final String USER_ATTRIBUTE = "user";	
+	private static final String PATH_TO_MAIN_PAGE_WITH_PARAMETR = "Controller?command=Go_To_Main_Page&pageNumber=1";
+	private static final String USER_ATTRIBUTE = "user";
 	private static final String COMMAND_PARAMETER = "command";
 
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -40,7 +39,7 @@ public class SecurityFilter implements Filter {
 			user = new User();
 			user.setRole(Role.GUEST);
 			session.setAttribute(USER_ATTRIBUTE, user);
-			resp.sendRedirect(PATH_TO_MAIN_PAGE);
+			resp.sendRedirect(PATH_TO_MAIN_PAGE_WITH_PARAMETR);
 			return;
 		}
 
@@ -50,7 +49,7 @@ public class SecurityFilter implements Filter {
 			user = new User();
 			user.setRole(Role.GUEST);
 			session.setAttribute(USER_ATTRIBUTE, user);
-			resp.sendRedirect(PATH_TO_MAIN_PAGE);
+			resp.sendRedirect(PATH_TO_MAIN_PAGE_WITH_PARAMETR);
 			return;
 		}
 
@@ -70,6 +69,8 @@ public class SecurityFilter implements Filter {
 			case ADD_NEWS_TO_FAVOURITE:
 			case GO_TO_FAVOURITE_NEWS_PAGE:
 			case DELETE_NEWS_FROM_FAVOURITE:
+			case GO_TO_SEARCH_NEWS_PAGE:
+			case SEARCH_NEWS:
 
 				if (Role.GUEST.equals(user.getRole())) {
 					resp.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);

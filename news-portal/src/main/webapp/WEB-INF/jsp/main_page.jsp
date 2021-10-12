@@ -28,7 +28,9 @@
 	var="user_profile" />
 <fmt:message bundle="${loc}" key="local.main_page.favourite_news_button"
 	var="favourite_news_button" />
-
+<fmt:message bundle="${loc}" key="local.page" var="page" />
+<fmt:message bundle="${loc}" key="local.main_page.search_news_button"
+	var="search_news_button" />
 </head>
 
 <body>
@@ -97,9 +99,16 @@
 
 					<div class="favourite_news">
 						<form action="Controller" method="post">
-							<input type=hidden name="command"
-								value="GO_TO_FAVOURITE_NEWS_PAGE" /> <input type="submit"
-								name="command" value="${favourite_news_button}" />
+							<input type="hidden" name="pageNumber" value="1" /> <input
+								type=hidden name="command" value="GO_TO_FAVOURITE_NEWS_PAGE" />
+							<input type="submit" name="command"
+								value="${favourite_news_button}" />
+						</form>
+					</div>
+					<div class="search_news">
+						<form action="Controller" method="post">
+							<input type=hidden name="command" value="GO_TO_SEARCH_NEWS_PAGE" />
+							<input type="submit" name="command" value="${search_news_button}" />
 						</form>
 					</div>
 
@@ -114,6 +123,14 @@
 	<br>
 	<br>
 	<div class="main-content">
+
+		<div align="center">
+			<p>
+				<c:out value="${page}" />
+				<c:out value="${param.pageNumber}" />
+			</p>
+		</div>
+		<br />
 		<c:forEach var="news" items="${newsList}">
 			<h2>
 				<c:out value="${news.title}" />
@@ -130,6 +147,15 @@
 				</form>
 			</c:if>
 			<hr>
+		</c:forEach>
+	</div>
+
+	<div align="center">
+		<c:forEach begin="1" end="${amountPage}" step="1" varStatus="i">
+			<c:url value="Controller?command=GO_TO_MAIN_PAGE" var="url">
+				<c:param name="pageNumber" value="${i.index}" />
+			</c:url>
+			<a href="${url}">${i.index}</a>
 		</c:forEach>
 	</div>
 </body>

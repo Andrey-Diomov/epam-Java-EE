@@ -18,10 +18,12 @@ import by.diomov.newsportal.controller.impl.GoToMainPage;
 import by.diomov.newsportal.controller.impl.GoToReadCommentsPage;
 import by.diomov.newsportal.controller.impl.GoToReadNewsPage;
 import by.diomov.newsportal.controller.impl.GoToRegistrationPage;
+import by.diomov.newsportal.controller.impl.GoToSearchNewsPage;
 import by.diomov.newsportal.controller.impl.GoToUpdateNewsPage;
 import by.diomov.newsportal.controller.impl.GoToUserProfile;
 import by.diomov.newsportal.controller.impl.LogOut;
 import by.diomov.newsportal.controller.impl.RegistrationNewUser;
+import by.diomov.newsportal.controller.impl.SearchNews;
 import by.diomov.newsportal.controller.impl.SignIn;
 import by.diomov.newsportal.controller.impl.UnknownCommand;
 import by.diomov.newsportal.controller.impl.UpdateNews;
@@ -51,6 +53,8 @@ public class CommandProvider {
 		commands.put(CommandName.ADD_NEWS_TO_FAVOURITE, new AddNewsToFavourite());
 		commands.put(CommandName.GO_TO_FAVOURITE_NEWS_PAGE, new GoToFavouriteNewsPage());
 		commands.put(CommandName.DELETE_NEWS_FROM_FAVOURITE, new DeleteNewsFromFavourite());
+		commands.put(CommandName.GO_TO_SEARCH_NEWS_PAGE, new GoToSearchNewsPage());
+		commands.put(CommandName.SEARCH_NEWS, new SearchNews());
 
 		commands.put(CommandName.UNKNOWN_COMMAND, new UnknownCommand());
 	}

@@ -46,7 +46,7 @@
 		<filter-name>securityfilter</filter-name>
 		<url-pattern>/Controller</url-pattern>
 	</filter-mapping>
- 
+	
 	<listener>
 		<listener-class>
 			by.diomov.newsportal.listener.SessionListener

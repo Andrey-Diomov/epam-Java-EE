@@ -33,6 +33,8 @@
 <fmt:message bundle="${loc}"
 	key="local.read_news_page.delete_from_favourite_button"
 	var="delete_from_favourite_button" />
+	<fmt:message bundle="${loc}" key="local.read_comments_page.page"
+	var="page" />
 </head>
 
 <body>
@@ -57,6 +59,7 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
+				<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="go_to_main_page">${main_page_button}</button>
 				</form>
@@ -85,7 +88,7 @@
 
 		<form action="Controller" method="post">
 			<input type="hidden" name="idNews" value="${news.id}" /> <input
-				type="hidden" name="pageNumber" value=0 /> <input type="hidden"
+				type="hidden" name="pageNumber" value=1 /> <input type="hidden"
 				name="command" value="go_to_read_comments_page" /> <input
 				type="submit" value="${read_comments_button}" />
 		</form>
@@ -99,7 +102,7 @@
 		</c:if>
 
 		<c:if test="${favourite}">
-			<form action="Controller" method="post">
+			<form action="Controller" method="post">			
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
 					type="hidden" name="command" value="delete_news_from_favourite" />
 				<input type="submit" value="${delete_from_favourite_button}" />

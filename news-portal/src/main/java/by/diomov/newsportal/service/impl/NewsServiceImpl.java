@@ -43,14 +43,14 @@ public class NewsServiceImpl implements NewsService {
 		}
 	}
 
-	@Override
-	public List<News> getAll() throws ServiceException {
-		try {
-			return newsDAO.getAll();
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-	}
+//	@Override
+//	public List<News> getAll() throws ServiceException {
+//		try {
+//			return newsDAO.getAll();
+//		} catch (DAOException e) {
+//			throw new ServiceException(e);
+//		}
+//	}
 
 	@Override
 	public News get(int id) throws ServiceException {
@@ -71,9 +71,9 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<News> getFavourite(int userId) throws ServiceException {
+	public List<News> getFavouritesLimitedList(int userId, int from, int amount) throws ServiceException {
 		try {
-			return newsDAO.getFavourite(userId);
+			return newsDAO.getFavouritesLimitedList(userId, from, amount);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -83,6 +83,42 @@ public class NewsServiceImpl implements NewsService {
 	public void deleteFromFavourite(int userId, int newsId) throws ServiceException {
 		try {
 			newsDAO.deleteFromFavourite(userId, newsId);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<News> getLimitedList(int from, int amount) throws ServiceException {
+		try {
+			return newsDAO.getLimitedList(from, amount);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public int getAmountNews() throws ServiceException {
+		try {
+			return newsDAO.getAmountNews();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public int getAmountFavouritesNewsByUserId(int id) throws ServiceException {
+		try {
+			return newsDAO.getAmountFavouritesNewsByUserId(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<News> findNewsByWordInTitle(String word) throws ServiceException {
+		try {
+			return newsDAO.findNewsByWordInTitle(word);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

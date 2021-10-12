@@ -23,25 +23,37 @@ public class GoToMainPage implements Command {
 
 	private static final String PATH_TO_MAIN_PAGE = "/WEB-INF/jsp/main_page.jsp";
 	private static final String PATH_TO_ERROR_PAGE_ = "/WEB-INF/jsp/error_page.jsp";
-
-	private static final String COMMAND = "Go_To_Main_Page";
-	private static final String PATH_ATTRIBUTE = "path";
-	private static final String NEWS_ATTRIBUTE = "newsList";
-	private static final String NEWS_FAVOURITE_ATTRIBUTE = "favourite";
+	private static final String PATH_TO_MAIN_PAGE_WITH_PARAMETER = "Go_To_Main_Page&pageNumber=%s";	
+	private static final String PATH = "path";
+	private static final String NEWS = "newsList";
+	private static final String NEWS_FAVOURITE = "favourite";
 	private static final boolean FAVOURITE = false;
+	private static final int NUMBER_NEWS_ON_THE_PAGE = 2;
+	private static final String PAGE_NUMBER = "pageNumber";
+	private static final String AMOUNT_PAGE = "amountPage";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
+		int pageNumber = Integer.valueOf(request.getParameter(PAGE_NUMBER));
+		int from = (pageNumber - 1) * NUMBER_NEWS_ON_THE_PAGE;
 
 		try {
-			List<News> newsList = newsService.getAll();
-			request.setAttribute(NEWS_ATTRIBUTE, newsList);
+			List<News> newsList = newsService.getLimitedList(from, NUMBER_NEWS_ON_THE_PAGE);
+			request.setAttribute(NEWS, newsList);
 
-			session.setAttribute(PATH_ATTRIBUTE, COMMAND);
-			session.setAttribute(NEWS_FAVOURITE_ATTRIBUTE, FAVOURITE);
-			
+			int amountNews = newsService.getAmountNews();
+			int amountPage = amountNews / NUMBER_NEWS_ON_THE_PAGE;
+			if (amountNews % NUMBER_NEWS_ON_THE_PAGE != 0) {
+				amountPage++;
+			}
+
+			session.setAttribute(PATH, String.format(PATH_TO_MAIN_PAGE_WITH_PARAMETER, pageNumber));
+			session.setAttribute(NEWS_FAVOURITE, FAVOURITE);
+			request.setAttribute(NEWS, newsList);
+			request.setAttribute(AMOUNT_PAGE, amountPage);			
+
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_MAIN_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

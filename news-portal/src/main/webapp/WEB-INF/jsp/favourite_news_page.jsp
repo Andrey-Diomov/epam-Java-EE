@@ -16,6 +16,7 @@
 <fmt:message bundle="${loc}" key="local.en_button" var="en_button" />
 <fmt:message bundle="${loc}" key="local.main_page.read_button"
 	var="read_button" />
+<fmt:message bundle="${loc}" key="local.page" var="page" />
 
 </head>
 
@@ -56,6 +57,13 @@
 	</div>
 
 	<div class="main-content">
+		<div align="center">
+			<p>
+				<c:out value="${page}" />
+				<c:out value="${param.pageNumber}" />
+			</p>
+		</div>
+		<br />
 		<c:forEach var="news" items="${newsList}">
 
 			<h2>
@@ -73,6 +81,17 @@
 
 			<hr>
 		</c:forEach>
+
+		<div align="center">
+			<c:forEach begin="1" end="${amountPage}" step="1" varStatus="i">
+				<c:url value="Controller?command=Go_To_Favourite_News_Page"
+					var="url">
+					<c:param name="pageNumber" value="${i.index}" />
+					<c:param name="idNews" value="${idNews}" />
+				</c:url>
+				<a href="${url}">${i.index}</a>
+			</c:forEach>
+		</div>
 	</div>
 </body>
 <script>

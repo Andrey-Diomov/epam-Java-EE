@@ -10,4 +10,6 @@ public interface CommentDAO {
 	List<Comment> getLimitedListCommentsByNewsId(int from, int amount, int id) throws DAOException;
 
 	void deleteAllByNewsId(int id) throws DAOException;
+
+	int getAmountCommentsByNewsId(int id) throws DAOException;
 }

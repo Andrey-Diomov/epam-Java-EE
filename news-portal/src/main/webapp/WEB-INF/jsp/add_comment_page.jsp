@@ -48,6 +48,7 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
+				<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="go_to_main_page">${main_button}</button>
 				</form>
@@ -58,7 +59,7 @@
 		
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="add_comment" /> <input
-					type="hidden" name="idNews" value="${idNews}" /> <br />
+					type="hidden" name="idNews" value="${idNews}" /> 
 				<c:out value="${enter_comment}" />
 				<br />
 				<textarea rows="4" cols="50" name="text"></textarea>

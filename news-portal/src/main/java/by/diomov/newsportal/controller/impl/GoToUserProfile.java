@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.diomov.newsportal.bean.RegistrationInfo;
-import by.diomov.newsportal.bean.Role;
 import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.controller.Command;
 import by.diomov.newsportal.service.ServiceException;
@@ -23,8 +22,7 @@ public class GoToUserProfile implements Command {
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final UserService userService = provider.getUserService();
 
-	private static final String PATH_TO_AUTHIRIZATION_WITH_MESSAGE = "Controller?command=Authorization&message=%s";
-	private static final String PATH_TO_AUTHORIZATION_PAGE = "Controller?command=Go_To_Authorization_Page";
+	private static final String PATH_TO_AUTHIRIZATION_WITH_MESSAGE = "Controller?command=Authorization&message=%s";	
 	private static final String PATH_TO_USER_PROFILE_PAGE = "/WEB-INF/jsp/user_profile_page.jsp";
 	private static final String PATH_TO_MAIN_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Main_Page&message=%s";
 
@@ -39,11 +37,6 @@ public class GoToUserProfile implements Command {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute(USER_ATTRIBUTE);
-
-//		if (Role.GUEST.equals(user.getRole())) {
-//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-//			return;
-//		}
 
 		try {
 			RegistrationInfo info = userService.getRegistrationInfo(user.getId());

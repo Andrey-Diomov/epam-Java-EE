@@ -5,7 +5,6 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.diomov.newsportal.bean.Comment;
-import by.diomov.newsportal.bean.Role;
 import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.controller.Command;
 import by.diomov.newsportal.service.CommentService;
@@ -21,29 +20,23 @@ public class AddComment implements Command {
 
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final CommentService commentService = provider.getCommentService();
-
-	private static final String PATH_TO_AUTHORIZATION_PAGE = "Controller?command=Go_To_Authorization_Page";
+	
 	private static final String PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Read_News_Page&idNews=%s";
 	private static final String PATH_TO_MAIN_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Main_Page&message=%s";
 
 	private static final String MESSAGE_TEMPORARY_PROBLEM = "Sorry, we're having problems.Please try again later";
-	private static final String USER_ATTRIBUTE = "user";
-	private static final String TEXT_PARAMETER = "text";
-	private static final String ID_NEWS_PARAM = "idNews";
+	private static final String USER = "user";
+	private static final String TEXT = "text";
+	private static final String ID_NEWS = "idNews";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 
-		User user = (User) session.getAttribute(USER_ATTRIBUTE);
+		User user = (User) session.getAttribute(USER);
 
-//		if (Role.GUEST.equals(user.getRole())) {
-//			response.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
-//			return;
-//		}
-
-		String text = request.getParameter(TEXT_PARAMETER);
-		int newsId = Integer.valueOf(request.getParameter(ID_NEWS_PARAM));
+		String text = request.getParameter(TEXT);
+		int newsId = Integer.valueOf(request.getParameter(ID_NEWS));
 
 		try {
 			Comment comment = new Comment(text, new Date(), user.getId(), newsId);
