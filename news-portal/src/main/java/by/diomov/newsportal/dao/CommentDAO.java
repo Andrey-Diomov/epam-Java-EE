@@ -7,7 +7,7 @@ public interface CommentDAO {
 
 	void save(Comment comment) throws DAOException;
 
-	List<Comment> getLimitedListCommentsByNewsId(int from, int amount, int id) throws DAOException;
+	List<Comment> getLimitedAmountCommentsByNewsId(int start, int limit, int id) throws DAOException;
 
 	void deleteAllByNewsId(int id) throws DAOException;
 

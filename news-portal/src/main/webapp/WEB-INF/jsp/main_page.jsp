@@ -31,6 +31,8 @@
 <fmt:message bundle="${loc}" key="local.page" var="page" />
 <fmt:message bundle="${loc}" key="local.main_page.search_news_button"
 	var="search_news_button" />
+<fmt:message bundle="${loc}" key="local.main_page.users_button"
+	var="users_button" />
 </head>
 
 <body>
@@ -59,12 +61,14 @@
 				</form>
 
 				<c:if test="${user.role =='GUEST'}">
+
 					<div class="registration_button">
 						<form action="Controller" method="post">
 							<input type="hidden" name="command" value="registration" /> <input
 								type="submit" name="command" value="${registration_button}" />
 						</form>
 					</div>
+
 					<div class="authorization_button">
 						<form action="Controller" method="post">
 							<input type="hidden" name="command" value="authorization" /> <input
@@ -74,6 +78,15 @@
 				</c:if>
 
 				<c:if test="${user.role == 'ADMIN'}">
+					<form action="Controller" method="post">
+						<input type="hidden" name="pageNumber" value="1" /> <input
+							type="hidden" name="ability" value="true" /><input type=hidden
+							name="command" value="GO_TO_LIST_USERS_PAGE" /> <input
+							type="submit" name="command" value="${users_button}" />
+					</form>
+				</c:if>
+
+				<c:if test="${user.role == 'EDITOR'}">
 					<div class="add_button">
 						<form action="Controller" method="post">
 							<input type="hidden" name="command" value="go_to_add_news_page" />
@@ -105,6 +118,7 @@
 								value="${favourite_news_button}" />
 						</form>
 					</div>
+
 					<div class="search_news">
 						<form action="Controller" method="post">
 							<input type=hidden name="command" value="GO_TO_SEARCH_NEWS_PAGE" />
@@ -117,9 +131,6 @@
 		</div>
 	</div>
 
-	<h1>
-		<c:out value="${param.message}" />
-	</h1>
 	<br>
 	<br>
 	<div class="main-content">
@@ -130,7 +141,9 @@
 				<c:out value="${param.pageNumber}" />
 			</p>
 		</div>
+
 		<br />
+
 		<c:forEach var="news" items="${newsList}">
 			<h2>
 				<c:out value="${news.title}" />

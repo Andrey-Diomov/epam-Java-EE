@@ -1,4 +1,4 @@
-package by.diomov.newsportal.controller.impl;
+package by.diomov.newsportal.controller.impl.news;
 
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import by.diomov.newsportal.bean.News;
 import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.controller.Command;
+import by.diomov.newsportal.controller.impl.message.LocalMessage;
 import by.diomov.newsportal.service.NewsService;
 import by.diomov.newsportal.service.ServiceException;
 import by.diomov.newsportal.service.ServiceProvider;
@@ -20,10 +21,9 @@ public class AddNews implements Command {
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final NewsService newsService = provider.getNewsService();
 
-	private static final String PATH_TO_MAIN_PAGE = "Controller?command=Go_To_Main_Page";
-	private static final String PATH_TO_MAIN_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Main_Page&message=%s";
+	private static final String PATH_TO_MAIN_PAGE_WITH_PARAMETR = "Controller?command=Go_To_Main_Page&pageNumber=1";
+	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
 
-	private static final String MESSAGE_TEMPORARY_PROBLEMS = "Sorry, we're having problems.Please try again later";
 	private static final String USER = "user";
 	private static final String TITLE = "title";
 	private static final String BRIEF = "brief";
@@ -43,10 +43,10 @@ public class AddNews implements Command {
 		try {
 			News news = new News(title, brief, content, user.getId());
 			newsService.save(news);
-			response.sendRedirect(PATH_TO_MAIN_PAGE);
+			response.sendRedirect(PATH_TO_MAIN_PAGE_WITH_PARAMETR);
 		} catch (ServiceException e) {
 			log.error("Error when trying to add news to the database.", e);
-			response.sendRedirect(String.format(PATH_TO_MAIN_PAGE_WITH_MESSAGE, MESSAGE_TEMPORARY_PROBLEMS));
+			response.sendRedirect(String.format(PATH_TO_ERROR_PAGE_WITH_MESSAGE, LocalMessage.TEMPORARY_PROBLEMS));
 		}
 	}
 }

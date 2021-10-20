@@ -43,15 +43,6 @@ public class NewsServiceImpl implements NewsService {
 		}
 	}
 
-//	@Override
-//	public List<News> getAll() throws ServiceException {
-//		try {
-//			return newsDAO.getAll();
-//		} catch (DAOException e) {
-//			throw new ServiceException(e);
-//		}
-//	}
-
 	@Override
 	public News get(int id) throws ServiceException {
 		try {
@@ -71,9 +62,9 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<News> getFavouritesLimitedList(int userId, int from, int amount) throws ServiceException {
+	public List<News> getFavouritesLimitedAmount(int userId, int start, int limit) throws ServiceException {
 		try {
-			return newsDAO.getFavouritesLimitedList(userId, from, amount);
+			return newsDAO.getFavouritesLimitedAmount(userId, start, limit);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -89,9 +80,9 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<News> getLimitedList(int from, int amount) throws ServiceException {
+	public List<News> getLimitedAmount(int start, int limit) throws ServiceException {
 		try {
-			return newsDAO.getLimitedList(from, amount);
+			return newsDAO.getLimitedAmount(start, limit);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -107,18 +98,27 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public int getAmountFavouritesNewsByUserId(int id) throws ServiceException {
+	public int getAmountFavouritesByUserId(int id) throws ServiceException {
 		try {
-			return newsDAO.getAmountFavouritesNewsByUserId(id);
+			return newsDAO.getAmountFavouritesByUserId(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 	}
 
 	@Override
-	public List<News> findNewsByWordInTitle(String word) throws ServiceException {
+	public List<News> findByWordInTitle(String word) throws ServiceException {
 		try {
-			return newsDAO.findNewsByWordInTitle(word);
+			return newsDAO.findByWordInTitle(word);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean isFavourite(int userId, int newsId) throws ServiceException {
+		try {
+			return newsDAO.isFavourite(userId, newsId);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

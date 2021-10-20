@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Search_news_page</title>
+<title>Change_password_page</title>
 <link rel="stylesheet" href="css/main_page.css">
-<link rel="stylesheet" href="css/search_news_page.css">
+<link rel="stylesheet" href="css/update_news_page.css">
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local" var="loc" />
@@ -18,12 +18,14 @@
 <fmt:message bundle="${loc}" key="local.to_main_page_button"
 	var="main_button" />
 <fmt:message bundle="${loc}"
-	key="local.search_news_page.search_news_button"
-	var="search_news_button" />
-<fmt:message bundle="${loc}" key="local.search_news_page.search_message"
-	var="search_message" />
-<fmt:message bundle="${loc}" key="local.search_news_page.read_button"
-	var="read_button" />
+	key="local.change_password_page.update_password_button"
+	var="update_password_button" />
+<fmt:message bundle="${loc}" key="local.update_password_button.login"
+	var="login" />
+<fmt:message bundle="${loc}" key="local.update_password_button.password"
+	var="password" />
+<fmt:message bundle="${loc}"
+	key="local.update_password_button.new_password" var="new_password" />
 </head>
 
 <body>
@@ -48,7 +50,6 @@
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
-				
 				<form action="Controller" method="post">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
@@ -61,39 +62,16 @@
 	<div class="main-content">
 
 		<form action="Controller" method="post">
-
-			<input type="hidden" name="command" value="search_news" /> <br />
-			<!--  
-			<c:out value="${search}" />
-			-->
-			<c:out value="${search_message}" />
-			<br /> <input type="text" name="search_word" size="25"
-				required="required" /> <br />
-
-			<div>
-				<input type="submit" value="${search_news_button}" />
-			</div>
+			<input type="hidden" name="command" value="Change_Password" />
+			${login}<br /> <input type="text" name="login" value="" /><br />
+			${password}<br /> <input type="password" name="old_password"
+				value="" /><br /> ${new_password}<br /> <input type="password"
+				name="new_password" value="" /><br /> <input type="submit"
+				value="${update_password_button}" /><br />
 		</form>
-		<br />
 
-		<c:forEach var="news" items="${newsList}">
-			<h2>
-				<c:out value="${news.title}" />
-			</h2>
-
-			<h3>
-				<c:out value="${news.brief}" />
-			</h3>
-
-			<form action="Controller" method="post">
-				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="go_to_read_news_page" /> <input
-					type="submit" value="${read_button}" />
-			</form>
-
-			<hr>
-		</c:forEach>
 	</div>
+
 	<script>
 		document
 				.addEventListener(

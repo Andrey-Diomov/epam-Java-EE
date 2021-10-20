@@ -1,4 +1,4 @@
-package by.diomov.newsportal.controller.impl;
+package by.diomov.newsportal.controller.impl.comment;
 
 import java.io.IOException;
 import java.util.Date;
@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import by.diomov.newsportal.bean.Comment;
 import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.controller.Command;
+import by.diomov.newsportal.controller.impl.message.LocalMessage;
 import by.diomov.newsportal.service.CommentService;
 import by.diomov.newsportal.service.ServiceException;
 import by.diomov.newsportal.service.ServiceProvider;
@@ -20,11 +21,10 @@ public class AddComment implements Command {
 
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final CommentService commentService = provider.getCommentService();
-	
-	private static final String PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Read_News_Page&idNews=%s";
-	private static final String PATH_TO_MAIN_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Main_Page&message=%s";
 
-	private static final String MESSAGE_TEMPORARY_PROBLEM = "Sorry, we're having problems.Please try again later";
+	private static final String PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Read_News_Page&idNews=%s";
+	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
+
 	private static final String USER = "user";
 	private static final String TEXT = "text";
 	private static final String ID_NEWS = "idNews";
@@ -44,7 +44,7 @@ public class AddComment implements Command {
 			response.sendRedirect(String.format(PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER, newsId));
 		} catch (ServiceException e) {
 			log.error("Error when trying to add comment to the database.", e);
-			response.sendRedirect(String.format(PATH_TO_MAIN_PAGE_WITH_MESSAGE, MESSAGE_TEMPORARY_PROBLEM));
+			response.sendRedirect(String.format(PATH_TO_ERROR_PAGE_WITH_MESSAGE, LocalMessage.TEMPORARY_PROBLEMS));
 		}
 	}
 }

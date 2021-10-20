@@ -30,7 +30,7 @@ public class User implements Serializable {
 	public User(String name, String surname, String eMail, String login, Role role) {
 		this(0, name, surname, eMail, login, role, true);
 	}
-
+	
 	public User(int id, String login, Role role) {
 		this(id, null, null, null, login, role, true);
 	}

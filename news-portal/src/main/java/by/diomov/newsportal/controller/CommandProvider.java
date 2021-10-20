@@ -4,32 +4,36 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.diomov.newsportal.controller.impl.AddComment;
-import by.diomov.newsportal.controller.impl.AddNews;
-import by.diomov.newsportal.controller.impl.AddNewsToFavourite;
-import by.diomov.newsportal.controller.impl.ChangeLocal;
-import by.diomov.newsportal.controller.impl.DeleteNews;
-import by.diomov.newsportal.controller.impl.DeleteNewsFromFavourite;
-import by.diomov.newsportal.controller.impl.GoToAddCommentPage;
-import by.diomov.newsportal.controller.impl.GoToAddNewsPage;
-import by.diomov.newsportal.controller.impl.GoToAuthorizationPage;
-import by.diomov.newsportal.controller.impl.GoToFavouriteNewsPage;
-import by.diomov.newsportal.controller.impl.GoToMainPage;
-import by.diomov.newsportal.controller.impl.GoToReadCommentsPage;
-import by.diomov.newsportal.controller.impl.GoToReadNewsPage;
-import by.diomov.newsportal.controller.impl.GoToRegistrationPage;
-import by.diomov.newsportal.controller.impl.GoToSearchNewsPage;
-import by.diomov.newsportal.controller.impl.GoToUpdateNewsPage;
-import by.diomov.newsportal.controller.impl.GoToUserProfile;
-import by.diomov.newsportal.controller.impl.LogOut;
-import by.diomov.newsportal.controller.impl.RegistrationNewUser;
-import by.diomov.newsportal.controller.impl.SearchNews;
-import by.diomov.newsportal.controller.impl.SignIn;
-import by.diomov.newsportal.controller.impl.UnknownCommand;
-import by.diomov.newsportal.controller.impl.UpdateNews;
 
-public class CommandProvider {
-	private final static Logger log = LogManager.getLogger(CommandProvider.class);
+import by.diomov.newsportal.controller.impl.ChangeLocal;
+import by.diomov.newsportal.controller.impl.LogOut;
+import by.diomov.newsportal.controller.impl.UnknownCommand;
+import by.diomov.newsportal.controller.impl.comment.AddComment;
+import by.diomov.newsportal.controller.impl.comment.GoToAddCommentPage;
+import by.diomov.newsportal.controller.impl.comment.GoToReadCommentsPage;
+import by.diomov.newsportal.controller.impl.news.AddNews;
+import by.diomov.newsportal.controller.impl.news.AddNewsToFavourite;
+import by.diomov.newsportal.controller.impl.news.DeleteNews;
+import by.diomov.newsportal.controller.impl.news.DeleteNewsFromFavourite;
+import by.diomov.newsportal.controller.impl.news.GoToAddNewsPage;
+import by.diomov.newsportal.controller.impl.news.GoToFavouriteNewsPage;
+import by.diomov.newsportal.controller.impl.news.GoToMainPage;
+import by.diomov.newsportal.controller.impl.news.GoToReadNewsPage;
+import by.diomov.newsportal.controller.impl.news.GoToSearchNewsPage;
+import by.diomov.newsportal.controller.impl.news.GoToUpdateNewsPage;
+import by.diomov.newsportal.controller.impl.news.SearchNews;
+import by.diomov.newsportal.controller.impl.news.UpdateNews;
+import by.diomov.newsportal.controller.impl.user.ChangePassword;
+import by.diomov.newsportal.controller.impl.user.GoToAuthorizationPage;
+import by.diomov.newsportal.controller.impl.user.GoToChangePassword;
+import by.diomov.newsportal.controller.impl.user.GoToListUsersPage;
+import by.diomov.newsportal.controller.impl.user.GoToRegistrationPage;
+import by.diomov.newsportal.controller.impl.user.GoToUserProfile;
+import by.diomov.newsportal.controller.impl.user.RegistrationNewUser;
+import by.diomov.newsportal.controller.impl.user.SetAbilityToComment;
+import by.diomov.newsportal.controller.impl.user.SignIn;
+
+public class CommandProvider {	
 	private Map<CommandName, Command> commands = new HashMap<>();
 
 	public CommandProvider() {
@@ -55,6 +59,10 @@ public class CommandProvider {
 		commands.put(CommandName.DELETE_NEWS_FROM_FAVOURITE, new DeleteNewsFromFavourite());
 		commands.put(CommandName.GO_TO_SEARCH_NEWS_PAGE, new GoToSearchNewsPage());
 		commands.put(CommandName.SEARCH_NEWS, new SearchNews());
+		commands.put(CommandName.CHANGE_PASSWORD, new ChangePassword());
+		commands.put(CommandName.GO_TO_CHANGE_PASSWORD_PAGE, new GoToChangePassword());
+		commands.put(CommandName.GO_TO_LIST_USERS_PAGE, new GoToListUsersPage());
+		commands.put(CommandName.SET_ABILITY_TO_COMMENT, new SetAbilityToComment());
 
 		commands.put(CommandName.UNKNOWN_COMMAND, new UnknownCommand());
 	}
@@ -64,7 +72,7 @@ public class CommandProvider {
 //			name = CommandName.UNKNOWN_COMMAND.toString();
 //		}
 
-		CommandName commandName= CommandName.valueOf(name.toUpperCase());
+		CommandName commandName = CommandName.valueOf(name.toUpperCase());
 //		try {
 //			commandName = CommandName.valueOf(name.toUpperCase());
 //		} catch (IllegalArgumentException e) {

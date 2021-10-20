@@ -17,7 +17,8 @@
 <fmt:message bundle="${loc}" key="local.main_page.read_button"
 	var="read_button" />
 <fmt:message bundle="${loc}" key="local.page" var="page" />
-
+<fmt:message bundle="${loc}" key="local.to_main_page_button"
+	var="main_page_button" />
 </head>
 
 <body>
@@ -45,12 +46,11 @@
 					</select>
 				</form>
 
-				<div class="log_out_button">
-					<form action="Controller" method="post">
-						<input type=hidden name="command" value="LOG_OUT" /> <input
-							type="submit" name="command" value="${log_out_button}" />
-					</form>
-				</div>
+				<form action="Controller" method="post">
+					<input type="hidden" name="pageNumber" value="1" />
+					<button class="main_button" type="submit" name="command"
+						value="go_to_main_page">${main_page_button}</button>
+				</form>
 
 			</div>
 		</div>

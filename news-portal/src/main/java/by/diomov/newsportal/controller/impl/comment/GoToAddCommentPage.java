@@ -1,4 +1,4 @@
-package by.diomov.newsportal.controller.impl;
+package by.diomov.newsportal.controller.impl.comment;
 
 import java.io.IOException;
 import by.diomov.newsportal.controller.Command;

@@ -23,6 +23,8 @@
 	key="local.authorization_page.login_placeholder" var="login" />
 <fmt:message bundle="${loc}" key="local.authorization_page.send_button"
 	var="send_button" />
+<fmt:message bundle="${loc}" key="local.to_main_page_button"
+	var="main_page_button" />
 
 </head>
 <body>
@@ -43,18 +45,38 @@
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
+
+				<form action="Controller" method="post">
+					<input type="hidden" name="pageNumber" value="1" /> <input
+						type="hidden" name="messages" value="" />
+					<button class="main_button" type="submit" name="command"
+						value="go_to_main_page">${main_page_button}</button>
+				</form>
 			</div>
 		</div>
 
 	</div>
 
 	<br>
-	<br>
 
 	<div class="authorization_form">
-		<p>
-			<c:out value="${param.message}" />
-		</p>
+
+		<c:if test="${param.message != null}">
+			<fmt:message bundle="${loc}" key="${param.message}" var="message" />
+			<c:out value="${message}"></c:out>
+		</c:if>
+
+		<c:if test="${param.list_messages == 'authorization'}">
+
+			<c:forEach var="message" items="${messages}">
+
+				<fmt:message bundle="${loc}" key="${message}" var="message" />
+				<c:out value="${message}"></c:out>
+				<br><br>
+			</c:forEach>
+
+		</c:if>
+
 		<form action="Controller" method="post">
 			<h3 class="headline">
 				<c:out value="${table_header}" />

@@ -20,6 +20,7 @@
 		<url-pattern>/Controller</url-pattern>
 	</servlet-mapping>
 
+
 	<filter>
 		<filter-name>encodingfilter</filter-name>
 		<filter-class>by.diomov.newsportal.filter.EncodingFilter
@@ -34,19 +35,30 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-
 	<filter>
-		<filter-name>securityfilter</filter-name>
+		<filter-name>authorizationfilter</filter-name>
 		<filter-class>
-			by.diomov.newsportal.filter.SecurityFilter
+			by.diomov.newsportal.filter.AuthorizationFilter
 			<servlet-name>Controller</servlet-name>
 		</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>securityfilter</filter-name>
+		<filter-name>authorizationfilter</filter-name>
 		<url-pattern>/Controller</url-pattern>
 	</filter-mapping>
-	
+		
+	<filter>
+		<filter-name>uservalidatorfilter</filter-name>
+		<filter-class>
+			by.diomov.newsportal.filter.UserValidatorFilter
+			<servlet-name>Controller</servlet-name>
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>uservalidatorfilter</filter-name>
+		<url-pattern>/Controller</url-pattern>
+	</filter-mapping>
+		
 	<listener>
 		<listener-class>
 			by.diomov.newsportal.listener.SessionListener

@@ -19,10 +19,10 @@ import by.diomov.newsportal.dao.impl.connection.ConnectionPool;
 public class CommentDAOImpl implements CommentDAO {
 	private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-	private static final String SQL_REQUEST_TO_INSERT_COMMENT = "INSERT INTO comment(text, created, userId, newsId) VALUE(?,?,?,?)";
-	private static final String SQL_REQUEST_TO_SELECT_LIMITED_LIST_COMMENTS_BY_NEWS_ID = "SELECT Comment.id, text, created, userId, newsId, User.id, login, role  FROM comment JOIN User ON comment.userId=User.id WHERE newsId=? LIMIT ?, ?";
-	private static final String SQL_REQUEST_TO_SELECT_AMOUNT_COMMENTS_BY_NEWS_ID = "SELECT COUNT(*) AS amount FROM COmment WHERE newsId = ?";
-	private static final String SQL_REQUEST_TO_DELETE_COMMENTS_BY_NEWS_ID = "DELETE  FROM comment WHERE newsId=?";
+	private static final String SQL_REQUEST_TO_INSERT = "INSERT INTO Comment(text, created, userId, newsId) VALUE(?,?,?,?)";
+	private static final String SQL_REQUEST_TO_SELECT_LIMITED_AMOUNT_BY_NEWS_ID = "SELECT Comment.id, text, created, userId, newsId, User.id, login, role  FROM Comment JOIN User ON Comment.userId = User.id WHERE newsId = ? LIMIT ?, ?";
+	private static final String SQL_REQUEST_TO_SELECT_AMOUNT_BY_NEWS_ID = "SELECT COUNT(*) AS amount FROM Comment WHERE newsId = ?";
+	private static final String SQL_REQUEST_TO_DELETE_COMMENTS_BY_NEWS_ID = "DELETE  FROM comment WHERE newsId = ?";
 
 	private static final String ID = "id";
 	private static final String TEXT_COMMENT = "text";
@@ -34,14 +34,13 @@ public class CommentDAOImpl implements CommentDAO {
 	private static final String ROLE_USER = "role";
 
 	@Override
-	public List<Comment> getLimitedListCommentsByNewsId(int from, int amount, int id) throws DAOException {
-
+	public List<Comment> getLimitedAmountCommentsByNewsId(int start, int limit, int id) throws DAOException {
 		try (Connection con = connectionPool.takeConnection();
-				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_LIMITED_LIST_COMMENTS_BY_NEWS_ID)) {
+				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_LIMITED_AMOUNT_BY_NEWS_ID)) {
 
 			pr.setInt(1, id);
-			pr.setInt(2, from);
-			pr.setInt(3, amount);
+			pr.setInt(2, start);
+			pr.setInt(3, limit);
 
 			ResultSet rs = pr.executeQuery();
 
@@ -63,7 +62,7 @@ public class CommentDAOImpl implements CommentDAO {
 	@Override
 	public void save(Comment comment) throws DAOException {
 		try (Connection con = connectionPool.takeConnection();
-				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_INSERT_COMMENT);) {
+				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_INSERT);) {
 			pr.setString(1, comment.getText());
 			pr.setDate(2, Date.valueOf(LocalDate.now()));
 			pr.setInt(3, comment.getUserId());
@@ -90,9 +89,8 @@ public class CommentDAOImpl implements CommentDAO {
 
 	@Override
 	public int getAmountCommentsByNewsId(int id) throws DAOException {
-
 		try (Connection con = connectionPool.takeConnection();
-				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_AMOUNT_COMMENTS_BY_NEWS_ID)) {
+				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_AMOUNT_BY_NEWS_ID)) {
 
 			pr.setInt(1, id);
 			ResultSet rs = pr.executeQuery();

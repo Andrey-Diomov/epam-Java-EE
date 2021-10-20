@@ -30,6 +30,8 @@
 	key="local.registration_page.email_placeholder" var="email" />
 <fmt:message bundle="${loc}" key="local.registration_page.send_button"
 	var="send_button" />
+<fmt:message bundle="${loc}" key="local.to_main_page_button"
+	var="main_page_button" />
 
 </head>
 
@@ -41,6 +43,7 @@
 			</h1>
 		</div>
 		<div class="controls">
+
 			<div class="buttons-block">
 				<form action="Controller" method="POST">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
@@ -49,18 +52,38 @@
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
+
+				<form action="Controller" method="post">
+					<input type="hidden" name="pageNumber" value="1" />
+					<button class="main_button" type="submit" name="command"
+						value="go_to_main_page">${main_page_button}</button>
+				</form>
 			</div>
 		</div>
 	</div>
-	
+	<br>
 	<br>
 	<br>
 	<br>
 
 	<div class="registration_form">
-		<p>
-			<c:out value="${param.message}" />
-		</p>
+
+		<c:if test="${param.message != null}">
+			<fmt:message bundle="${loc}" key="${param.message}" var="message" />
+			<c:out value="${message}"></c:out>			
+		</c:if>
+
+		<c:if test="${param.list_messages == 'registration'}">
+
+			<c:forEach var="message" items="${messages}">
+
+				<fmt:message bundle="${loc}" key="${message}" var="message" />
+				<c:out value="${message}"></c:out>
+				<br><br>
+			</c:forEach>
+
+		</c:if>
+
 		<form action="Controller" method="post">
 			<h3 class="headline">${table_header}</h3>
 			<input type="hidden" name="command" value="REGISTRATION_NEW_USER" />

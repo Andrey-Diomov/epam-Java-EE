@@ -9,7 +9,7 @@ public class News implements Serializable {
 	private int id;
 	private String title;
 	private String brief;
-	private String content;
+	private String content;	
 	private int userId;
 
 	public News() {

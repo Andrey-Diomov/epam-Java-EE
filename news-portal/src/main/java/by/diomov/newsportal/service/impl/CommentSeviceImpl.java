@@ -13,9 +13,9 @@ public class CommentSeviceImpl implements CommentService {
 	private final CommentDAO commentDAO = provider.getCommentDAO();
 
 	@Override
-	public List<Comment> getLimitedListCommentsByNewsId(int from, int amount, int id) throws ServiceException {
+	public List<Comment> getLimitedAmountCommentsByNewsId(int start, int limit, int id) throws ServiceException {
 		try {
-			return commentDAO.getLimitedListCommentsByNewsId(from, amount, id);
+			return commentDAO.getLimitedAmountCommentsByNewsId(start, limit, id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

@@ -1,4 +1,4 @@
-package by.diomov.newsportal.controller.impl;
+package by.diomov.newsportal.controller.impl.news;
 
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import by.diomov.newsportal.bean.News;
 import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.controller.Command;
+import by.diomov.newsportal.controller.impl.message.LocalMessage;
 import by.diomov.newsportal.service.NewsService;
 import by.diomov.newsportal.service.ServiceException;
 import by.diomov.newsportal.service.ServiceProvider;
@@ -19,10 +20,10 @@ public class UpdateNews implements Command {
 
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final NewsService newsService = provider.getNewsService();
-	
-	private static final String PATH_TO_MAIN_PAGE = "Controller?command=Go_To_Main_Page";
+
 	private static final String PATH_TO_READ_NEWS_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Read_News_Page&idNews=%s";
 	private static final String PATH_TO_UPDATE_PAGE_WITH_PARAMETER_ID_NEWS = "Controller?command=Go_To_Update_News_Page&idNews=%s";
+	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
 
 	private static final String USER = "user";
 	public static final String ID_NEWS = "idNews";
@@ -54,7 +55,7 @@ public class UpdateNews implements Command {
 			response.sendRedirect(String.format(PATH_TO_READ_NEWS_PAGE_WITH_MESSAGE, newsId));
 		} catch (ServiceException e) {
 			log.error("Error when trying to update news in the database.", e);
-			response.sendRedirect(PATH_TO_MAIN_PAGE);
+			response.sendRedirect(String.format(PATH_TO_ERROR_PAGE_WITH_MESSAGE, LocalMessage.TEMPORARY_PROBLEMS));
 		}
 	}
 
