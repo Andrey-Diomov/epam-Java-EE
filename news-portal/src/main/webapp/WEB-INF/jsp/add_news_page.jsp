@@ -48,19 +48,16 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
-				<input type="hidden" name="pageNumber" value="1" />
+					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	<div class="main-content">
 		<form action="Controller" method="post">
-			<c:if test="${user.role == 'ADMIN'}">
-				<input type="hidden" name="command" value="add_news" />
-			</c:if>
-			<br />
+			<input type="hidden" name="command" value="ADD_NEWS" /> <br />
 			<c:out value="${enter_title}" />
 			<br /> <input type="text" name="title" size="45" value="" required /><br />
 			<c:out value="${enter_brief}" />

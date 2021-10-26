@@ -10,7 +10,7 @@ public interface UserDAO {
 
 	boolean register(RegistrationInfo info) throws DAOException;
 
-	boolean updatePassword(String login, String oldPassword, String newPassword) throws DAOException;
+	boolean updatePassword(int userId, String password, String newPassword) throws DAOException;
 
 	RegistrationInfo getRegistrationInfo(int id) throws DAOException;
 

@@ -16,11 +16,16 @@ public class Controller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		processRequest(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		processRequest(request, response);
+	}
+
+	private void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		String commandName = request.getParameter(COMMAND_REQUEST_PARAM);
 		Command command = provider.findCommand(commandName);

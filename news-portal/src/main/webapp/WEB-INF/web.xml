@@ -20,7 +20,7 @@
 		<url-pattern>/Controller</url-pattern>
 	</servlet-mapping>
 
-
+<!--  
 	<filter>
 		<filter-name>encodingfilter</filter-name>
 		<filter-class>by.diomov.newsportal.filter.EncodingFilter
@@ -34,7 +34,7 @@
 		<filter-name>encodingfilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+-->
 	<filter>
 		<filter-name>authorizationfilter</filter-name>
 		<filter-class>

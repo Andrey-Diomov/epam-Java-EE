@@ -84,7 +84,7 @@ public class NewsDAOImpl implements NewsDAO {
 				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_NEWS_BY_ID)) {
 			pr.setInt(1, id);
 			ResultSet rs = pr.executeQuery();
-
+			System.out.println("get news");
 			News news = null;
 
 			if (rs.next()) {
@@ -199,7 +199,7 @@ public class NewsDAOImpl implements NewsDAO {
 				PreparedStatement pr = con.prepareStatement(SQL_REQUEST_TO_SELECT_AMOUNT_FAVOURITES_NEWS)) {
 			pr.setInt(1, id);
 			ResultSet rs = pr.executeQuery();
-			
+
 			rs.next();
 			return rs.getInt(AMOUNT);
 

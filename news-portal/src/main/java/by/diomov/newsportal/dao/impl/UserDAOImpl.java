@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO {
 	private static final String SQL_REQUEST_TO_SELECT_BY_LOGIN_OR_EMAIL = "SELECT * FROM User WHERE login = ? OR eMail = ?";
 	private static final String SQL_REQUEST_TO_SELECT_BY_ID = "SELECT * FROM User WHERE id = ?";
 	private static final String SQL_REQUEST_TO_CHECK_ABILITY_TO_COMMENT_BY_ID = "SELECT ability_to_comment FROM User WHERE id = ?";
-	private static final String SQL_REQUEST_TO_UPDATE_PASSWORD_BY_LOGIN = "UPDATE user SET password = ? WHERE login = ?";
+	private static final String SQL_REQUEST_TO_UPDATE_PASSWORD_BY_ID = "UPDATE user SET password = ? WHERE id = ?";
 	private static final String SQL_REQUEST_TO_SELECT_LIMITED_AMOUNT_BY_ABILITY_TO_COMMENT = "SELECT * FROM User WHERE ability_to_comment = ? ORDER BY login LIMIT ?, ?";
 	private static final String SQL_REQUEST_TO_UPDATE_ABILITY_TO_COMMENT_BY_ID = "UPDATE User SET ability_to_comment = ? WHERE id = ?";
 	private static final String SQL_REQUEST_TO_GET_AMOUNT_BY_ABILITY_TO_COMMENT = "SELECT COUNT(*) AS amount  FROM User WHERE ability_to_comment = ?";
@@ -121,27 +121,24 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean updatePassword(String login, String oldPassword, String newPassword) throws DAOException {
+	public boolean updatePassword(int userId, String password, String newPassword) throws DAOException {
 		try (Connection con = ConnectionPool.getInstance().takeConnection();
-				PreparedStatement prGetByLogin = con.prepareStatement(SQL_REQUEST_TO_SELECT_BY_LOGIN);
-				PreparedStatement prSetNewPassword = con.prepareStatement(SQL_REQUEST_TO_UPDATE_PASSWORD_BY_LOGIN)) {
+				PreparedStatement prGetByLogin = con.prepareStatement(SQL_REQUEST_TO_SELECT_BY_ID);
+				PreparedStatement prSetNewPassword = con.prepareStatement(SQL_REQUEST_TO_UPDATE_PASSWORD_BY_ID)) {
 
-			prGetByLogin.setString(1, login);
+			prGetByLogin.setInt(1, userId);
 			ResultSet rs = prGetByLogin.executeQuery();
 
-			if (!rs.next()) {
-				return false;
-			}
-
+			rs.next();
 			String hashedPasswordFromDB = rs.getString(PASSWORD);
 
-			if (BCrypt.checkpw(oldPassword, hashedPasswordFromDB)) {
+			if (BCrypt.checkpw(password, hashedPasswordFromDB)) {
 				String salt = BCrypt.gensalt();
-				String hashpw = BCrypt.hashpw(newPassword, salt);
+				String hashedNewpassword = BCrypt.hashpw(newPassword, salt);
 
-				prSetNewPassword.setString(1, hashpw);
-				prSetNewPassword.setString(2, login);
-				prSetNewPassword.executeQuery();
+				prSetNewPassword.setString(1, hashedNewpassword);
+				prSetNewPassword.setInt(2, userId);
+				prSetNewPassword.executeUpdate();
 
 				return true;
 			}
@@ -158,7 +155,7 @@ public class UserDAOImpl implements UserDAO {
 
 			pr.setInt(1, id);
 			ResultSet rs = pr.executeQuery();
-			
+
 			rs.next();
 			return rs.getBoolean(ABILITY_TO_COMMENT);
 		} catch (SQLException | ConnectionPoolException e) {
@@ -174,7 +171,7 @@ public class UserDAOImpl implements UserDAO {
 			pr.setBoolean(1, ability);
 			pr.setInt(2, id);
 			pr.executeUpdate();
-			
+
 		} catch (SQLException | ConnectionPoolException e) {
 			throw new DAOException("An error occurred while trying to get user  ability to comment , UserDAOImpl", e);
 		}

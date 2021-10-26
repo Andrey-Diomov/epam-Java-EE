@@ -54,7 +54,7 @@
 				<form action="Controller" method="post">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 
 			</div>

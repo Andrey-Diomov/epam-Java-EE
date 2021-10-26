@@ -55,16 +55,15 @@
 				<form action="Controller" method="post">
 				<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 			</div>
 		</div>
 	</div>
 
-	<div class="main-content">
-		<c:if test="${user.role == 'ADMIN'}">
+	<div class="main-content">		
 			<form action="Controller" method="post">
-				<input type="hidden" name="command" value="update_news" /> <input
+				<input type="hidden" name="command" value="UPDATE_NEWS" /> <input
 					type="hidden" name="idNews" value="${news.id}" /> <br />
 				<c:out value="${title}" />
 				<br /> <input type="text" name="title" size="45"
@@ -84,11 +83,10 @@
 
 			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="go_to_read_news_page" /> <input
+					type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 					type="submit" value="${back_to_news_button}" />
 			</form>
-
-		</c:if>
+	
 	</div>
 	
 	<script>

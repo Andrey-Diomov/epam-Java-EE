@@ -56,7 +56,7 @@
 				<form action="Controller" method="post">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_page_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
 				</form>
 			</div>
 		</div>
@@ -70,7 +70,7 @@
 
 		<c:if test="${param.message != null}">
 			<fmt:message bundle="${loc}" key="${param.message}" var="message" />
-			<c:out value="${message}"></c:out>			
+			<c:out value="${message}"></c:out>
 		</c:if>
 
 		<c:if test="${param.list_messages == 'registration'}">
@@ -79,21 +79,23 @@
 
 				<fmt:message bundle="${loc}" key="${message}" var="message" />
 				<c:out value="${message}"></c:out>
-				<br><br>
+				<br>
+				<br>
 			</c:forEach>
 
 		</c:if>
-
+		
 		<form action="Controller" method="post">
 			<h3 class="headline">${table_header}</h3>
 			<input type="hidden" name="command" value="REGISTRATION_NEW_USER" />
-			${name}<br /> <input type="text" name="name" value="" /><br />
+			${name}<br /> <input type="text" name="name"  value="" /><br />
 			${surname}<br /> <input type="text" name="surname" value="" /><br />
 			${email}<br /> <input type="text" name="eMail" value="" /><br />
 			${login}<br /> <input type="text" name="login" value="" /><br />
 			${password}<br /> <input type="password" name="password" value="" /><br />
 			<input type="submit" value="${send_button}" /><br />
 		</form>
+
 	</div>
 
 	<script>

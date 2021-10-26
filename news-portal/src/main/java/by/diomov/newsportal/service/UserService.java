@@ -10,7 +10,7 @@ public interface UserService {
 
 	User authorization(String login, String password) throws ServiceException;
 
-	boolean updatePassword(String login, String oldPassword, String newPassword) throws ServiceException;
+	boolean updatePassword(int userId, String password, String newPassword) throws ServiceException;
 
 	RegistrationInfo getRegistrationInfo(int id) throws ServiceException;
 

@@ -33,7 +33,7 @@
 <fmt:message bundle="${loc}"
 	key="local.read_news_page.delete_from_favourite_button"
 	var="delete_from_favourite_button" />
-	<fmt:message bundle="${loc}" key="local.read_comments_page.page"
+<fmt:message bundle="${loc}" key="local.read_comments_page.page"
 	var="page" />
 </head>
 
@@ -59,9 +59,9 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
-				<input type="hidden" name="pageNumber" value="1" />
+					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_page_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
 				</form>
 			</div>
 		</div>
@@ -71,54 +71,54 @@
 		<h1 class="text-left">
 			<c:out value="${news.title}" />
 		</h1>
-		
+
 		<h2>
 			<c:out value="${news.brief}" />
 		</h2>
-		
+
 		<p>
 			<c:out value="${news.content}" />
 		</p>
 
 		<form action="Controller" method="post">
 			<input type="hidden" name="idNews" value="${news.id}" /> <input
-				type="hidden" name="command" value="go_to_add_comment_page" /> <input
+				type="hidden" name="command" value="GO_TO_ADD_COMMENT_PAGE" /> <input
 				type="submit" value="${add_comment_button}" />
 		</form>
 
 		<form action="Controller" method="post">
 			<input type="hidden" name="idNews" value="${news.id}" /> <input
 				type="hidden" name="pageNumber" value=1 /> <input type="hidden"
-				name="command" value="go_to_read_comments_page" /> <input
+				name="command" value="GO_TO_READ_COMMENTS_PAGE" /> <input
 				type="submit" value="${read_comments_button}" />
 		</form>
 
-		<c:if test="${!favourite}">
+		<c:if test="${!isUserFavouriteNews}">
 			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="add_news_to_favourite" /> <input
+					type="hidden" name="command" value="ADD_NEWS_TO_FAVOURITE" /> <input
 					type="submit" value="${add_to_favourite_button}" />
 			</form>
 		</c:if>
 
-		<c:if test="${favourite}">
-			<form action="Controller" method="post">			
+		<c:if test="${isUserFavouriteNews}">
+			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="delete_news_from_favourite" />
+					type="hidden" name="command" value="DELETE_NEWS_FROM_FAVOURITE" />
 				<input type="submit" value="${delete_from_favourite_button}" />
 			</form>
 		</c:if>
 
-		<c:if test="${user.role == 'ADMIN'}">
+		<c:if test="${user.role == 'EDITOR'}">
 			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="delete_news" /> <input
+					type="hidden" name="command" value="DELETE_NEWS" /> <input
 					type="submit" value="${delete_news_button}" />
 			</form>
 
 			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="go_to_update_news_page" /> <input
+					type="hidden" name="command" value="GO_TO_UPDATE_NEWS_PAGE" /> <input
 					type="submit" value="${update_news_button}" />
 			</form>
 

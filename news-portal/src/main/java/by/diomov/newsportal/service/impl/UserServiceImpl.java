@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updatePassword(String login, String oldPassword, String newPassword) throws ServiceException {
+	public boolean updatePassword(int userId, String password, String newPassword) throws ServiceException {
 		try {
-			return userDAO.updatePassword(login, oldPassword, newPassword);
+			return userDAO.updatePassword(userId, password, newPassword);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

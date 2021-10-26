@@ -9,4 +9,6 @@ public class LocalMessage {
 	public static final String TEMPORARY_PROBLEMS = "local.message.message_temporary_problems";
 	public static final String INVALID_LOGIN_OR_PASSWORD = "local.message.message_invalid_login_or_password";
 	public static final String USER_EXISTS = "local.message.message_user_exists";
+	public static final String INVALID_PASSWORD = "local.message.message_ivalid_password";
+	public static final String USER_BLOCKED = "local.message.message_user_blocked";
 }

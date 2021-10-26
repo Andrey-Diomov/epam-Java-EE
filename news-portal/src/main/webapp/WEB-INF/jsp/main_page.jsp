@@ -64,24 +64,25 @@
 
 					<div class="registration_button">
 						<form action="Controller" method="post">
-							<input type="hidden" name="command" value="registration" /> <input
+							<input type="hidden" name="command" value="REGISTRATION" /> <input
 								type="submit" name="command" value="${registration_button}" />
 						</form>
 					</div>
 
 					<div class="authorization_button">
 						<form action="Controller" method="post">
-							<input type="hidden" name="command" value="authorization" /> <input
+							<input type="hidden" name="command" value="AUTHORIZATION" /> <input
 								type="submit" name="command" value="${authorization_button}" />
 						</form>
+
 					</div>
+
 				</c:if>
 
 				<c:if test="${user.role == 'ADMIN'}">
 					<form action="Controller" method="post">
-						<input type="hidden" name="pageNumber" value="1" /> <input
-							type="hidden" name="ability" value="true" /><input type=hidden
-							name="command" value="GO_TO_LIST_USERS_PAGE" /> <input
+						<input type="hidden" name="pageNumber" value="1" /> <input type=hidden
+							name="command" value="GO_TO_SEARCH_USER_PAGE" /> <input
 							type="submit" name="command" value="${users_button}" />
 					</form>
 				</c:if>
@@ -89,12 +90,12 @@
 				<c:if test="${user.role == 'EDITOR'}">
 					<div class="add_button">
 						<form action="Controller" method="post">
-							<input type="hidden" name="command" value="go_to_add_news_page" />
+							<input type="hidden" name="command" value="GO_TO_ADD_NEWS_PAGE" />
 							<input type="submit" name="command" value="${add_button}" />
 						</form>
 					</div>
 				</c:if>
-
+			
 				<c:if test="${user.role !='GUEST'}">
 					<div class="log_out_button">
 						<form action="Controller" method="post">
@@ -153,9 +154,9 @@
 				<c:out value="${news.brief}" />
 			</h3>
 			<c:if test="${user.role !='GUEST'}">
-				<form action="Controller" method="post">
+				<form action="Controller" method="get">
 					<input type="hidden" name="idNews" value="${news.id}" /> <input
-						type="hidden" name="command" value="go_to_read_news_page" /> <input
+						type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 						type="submit" value="${read_button}" />
 				</form>
 			</c:if>

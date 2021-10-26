@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <title>Change_password_page</title>
 <link rel="stylesheet" href="css/main_page.css">
-<link rel="stylesheet" href="css/update_news_page.css">
+<link rel="stylesheet" href="css/change_password_page.css">
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local" var="loc" />
@@ -17,15 +17,15 @@
 <fmt:message bundle="${loc}" key="local.en_button" var="en_button" />
 <fmt:message bundle="${loc}" key="local.to_main_page_button"
 	var="main_button" />
+
 <fmt:message bundle="${loc}"
-	key="local.change_password_page.update_password_button"
-	var="update_password_button" />
-<fmt:message bundle="${loc}" key="local.update_password_button.login"
-	var="login" />
-<fmt:message bundle="${loc}" key="local.update_password_button.password"
+	key="local.change_password_page.send_button" var="send_button" />
+
+<fmt:message bundle="${loc}" key="local.change_password_page.password"
 	var="password" />
+
 <fmt:message bundle="${loc}"
-	key="local.update_password_button.new_password" var="new_password" />
+	key="local.change_password_page.new_password" var="new_password" />
 </head>
 
 <body>
@@ -53,21 +53,25 @@
 				<form action="Controller" method="post">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 			</div>
 		</div>
 	</div>
 
-	<div class="main-content">
-
+	<div class="change_password_form">
+		<br>
+		<c:if test="${param.message != null}">
+			<fmt:message bundle="${loc}" key="${param.message}" var="message" />
+			<c:out value="${message}"></c:out>
+		</c:if>
+		<br><br>
 		<form action="Controller" method="post">
-			<input type="hidden" name="command" value="Change_Password" />
-			${login}<br /> <input type="text" name="login" value="" /><br />
-			${password}<br /> <input type="password" name="old_password"
-				value="" /><br /> ${new_password}<br /> <input type="password"
-				name="new_password" value="" /><br /> <input type="submit"
-				value="${update_password_button}" /><br />
+			<input type="hidden" name="command" value="CHANGE_PASSWORD" />
+			${password}<br /> <input type="password" name="password" value="" /><br />
+			${new_password}<br /> <input type="password" name="new_password"
+				value="" /><br /> <br> <input type="submit"
+				value="${send_button}" /><br />
 		</form>
 
 	</div>

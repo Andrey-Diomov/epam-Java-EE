@@ -56,7 +56,7 @@
 				<form action="Controller" method="post">
 				<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_page_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
 				</form>
 			</div>
 		</div>
@@ -79,7 +79,7 @@
 		<c:out value="${info.login}" />
 		<br /> <br />
 		<form action="Controller" method="post">
-			<input type="hidden" name="command" value="UPDATE_USER_PROFILE" /> <input
+			<input type="hidden" name="command" value="GO_TO_CHANGE_PASSWORD_PAGE" /> <input
 				type="submit" value="${change_password_button}" />
 		</form>
 

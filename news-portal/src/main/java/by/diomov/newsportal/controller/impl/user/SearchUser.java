@@ -16,20 +16,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class GoToListUsersPage implements Command {
-	private static final Logger log = LogManager.getLogger(GoToListUsersPage.class);
+public class SearchUser implements Command {
+	private static final Logger log = LogManager.getLogger(SearchUser.class);
 
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final UserService userService = provider.getUserService();
 
-	private static final String PATH_TO_LIST_USERS_PAGE = "/WEB-INF/jsp/list_users_page.jsp";
-	private static final String PATH_TO_LIST_USERS_PAGE_WITH_PARAMETER = "Go_To_List_Users_Page&pageNumber=%s&ability=%s";
+	private static final String PATH_TO_SEARCH_USER_PAGE = "/WEB-INF/jsp/search_user_page.jsp";
+	private static final String PATH_TO_SEARCH_USER_PAGE_WITH_PARAMETER = "Search_User&pageNumber=%s&ability=%s";
 	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
 
 	private static final String PATH = "path";
 	private static final String USERS = "users";
+	private static final String AMOUNT_ALL_USERS = "amount_all_users";
 	private static final String PAGE_NUMBER = "pageNumber";
-	private static final int USERS_ON_THE_PAGE = 2;
+	private static final String USERS_ON_PAGE = "users_on_page";
+	private static final int AMOUNT_USERS_ON_PAGE = 5;
 	private static final String AMOUNT_PAGE = "amountPage";
 	private static final String ABILITY = "ability";
 
@@ -39,23 +41,26 @@ public class GoToListUsersPage implements Command {
 
 		try {
 			int pageNumber = Integer.valueOf(request.getParameter(PAGE_NUMBER));
-			int start = (pageNumber - 1) * USERS_ON_THE_PAGE;
+			int start = (pageNumber - 1) * AMOUNT_USERS_ON_PAGE;
 			boolean ability = Boolean.parseBoolean(request.getParameter(ABILITY));
-
-			List<User> users = userService.getLimitedAmountByAbilityToComment(ability, start, USERS_ON_THE_PAGE);
+						
+			List<User> users = userService.getLimitedAmountByAbilityToComment(ability, start, AMOUNT_USERS_ON_PAGE);
 
 			int amountUsers = userService.getAmountByAbilityToComment(ability);
-			int amountPage = amountUsers / USERS_ON_THE_PAGE;
-			if (amountUsers % USERS_ON_THE_PAGE != 0) {
+			int amountPage = amountUsers / AMOUNT_USERS_ON_PAGE;
+			if (amountUsers % AMOUNT_USERS_ON_PAGE != 0) {
 				amountPage++;
 			}
 
-			session.setAttribute(PATH, String.format(PATH_TO_LIST_USERS_PAGE_WITH_PARAMETER, pageNumber, ability));
+			session.setAttribute(PATH, String.format(PATH_TO_SEARCH_USER_PAGE_WITH_PARAMETER, pageNumber, ability));
 			request.setAttribute(USERS, users);
 			request.setAttribute(ABILITY, ability);
 			request.setAttribute(AMOUNT_PAGE, amountPage);
+			request.setAttribute(USERS_ON_PAGE, AMOUNT_USERS_ON_PAGE);
+			request.setAttribute(AMOUNT_ALL_USERS, amountUsers);
+			request.setAttribute(PAGE_NUMBER, pageNumber);
 
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_LIST_USERS_PAGE);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_SEARCH_USER_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {
 			log.error("Error when trying to get list users from database.", e);

@@ -56,7 +56,7 @@ public class AuthorizationFilter implements Filter {
 
 		String name = request.getParameter(COMMAND);
 
-		CommandName commandName;
+		CommandName commandName;		
 
 		try {
 			commandName = CommandName.valueOf(name.toUpperCase());
@@ -86,13 +86,21 @@ public class AuthorizationFilter implements Filter {
 			case DELETE_NEWS:
 
 				if (!Role.EDITOR.equals(user.getRole())) {
-					user.setRole(Role.GUEST);
+					user = new User();
+					user.setRole(Role.GUEST);					
 					session.setAttribute(USER, user);
 					resp.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
 					return;
 				}
 				break;
-				
+
+			case CHANGE_PASSWORD:
+				if (Role.GUEST.equals(user.getRole())) {
+					resp.sendRedirect(PATH_TO_AUTHORIZATION_PAGE);
+					return;
+				}
+				break;
+
 			default:
 				break;
 			}

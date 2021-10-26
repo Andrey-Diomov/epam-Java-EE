@@ -49,7 +49,7 @@
 				<form action="Controller" method="post">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_page_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
 				</form>
 
 			</div>
@@ -75,7 +75,7 @@
 
 			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="go_to_read_news_page" /> <input
+					type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 					type="submit" value="${read_button}" />
 			</form>
 
@@ -84,7 +84,7 @@
 
 		<div align="center">
 			<c:forEach begin="1" end="${amountPage}" step="1" varStatus="i">
-				<c:url value="Controller?command=Go_To_Favourite_News_Page"
+				<c:url value="Controller?command=GO_TO_FAVOURITE_NEWS_PAGE"
 					var="url">
 					<c:param name="pageNumber" value="${i.index}" />
 					<c:param name="idNews" value="${idNews}" />

@@ -19,8 +19,7 @@
 	var="main_button" />
 <fmt:message bundle="${loc}" key="local.read_comments_page.next_button"
 	var="next_button" />
-<fmt:message bundle="${loc}" key="local.page"
-	var="page" />
+<fmt:message bundle="${loc}" key="local.page" var="page" />
 <fmt:message bundle="${loc}"
 	key="local.read_comments_page.to_read_news_page_button"
 	var="back_to_news_button" />
@@ -46,9 +45,9 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
-				<input type="hidden" name="pageNumber" value="1" />
+					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 			</div>
 		</div>
@@ -77,9 +76,9 @@
 			<hr>
 		</c:forEach>
 
-		<form action="Controller" method="post">
+		<form action="Controller" method="get">
 			<input type="hidden" name="idNews" value="${idNews}" /> <input
-				type="hidden" name="command" value="go_to_read_news_page" /> <input
+				type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 				type="submit" value="${back_to_news_button}" />
 		</form>
 

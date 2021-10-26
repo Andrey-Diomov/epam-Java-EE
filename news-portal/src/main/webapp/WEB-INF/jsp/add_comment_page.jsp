@@ -48,33 +48,40 @@
 					</select>
 				</form>
 				<form action="Controller" method="post">
-				<input type="hidden" name="pageNumber" value="1" />
+					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	<div class="main-content">
-		
-			<form action="Controller" method="post">
-				<input type="hidden" name="command" value="add_comment" /> <input
-					type="hidden" name="idNews" value="${idNews}" /> 
-				<c:out value="${enter_comment}" />
-				<br />
-				<textarea rows="4" cols="50" name="text"></textarea>
-				<br />
-				<div>
-					<input type="submit" value="${add_button}" />
-				</div>
-			</form>
 
-			<form action="Controller" method="post">
-				<input type="hidden" name="idNews" value="${idNews}" /> <input
-					type="hidden" name="command" value="go_to_read_news_page" /> <input
-					type="submit" value="${back_to_news_button}" />
-			</form>
-		
+		<br>
+		<c:if test="${param.message != null}">
+			<fmt:message bundle="${loc}" key="${param.message}" var="message" />
+			<b><c:out value="${message}"></c:out></b>
+		</c:if>
+		<br> <br>
+
+		<form action="Controller" method="post">
+			<input type="hidden" name="command" value="ADD_COMMENT" /> <input
+				type="hidden" name="idNews" value="${idNews}" />
+			<c:out value="${enter_comment}" />
+			<br />
+			<textarea rows="4" cols="50" name="text"></textarea>
+			<br />
+			<div>
+				<input type="submit" value="${add_button}" />
+			</div>
+		</form>
+
+		<form action="Controller" method="get">
+			<input type="hidden" name="idNews" value="${idNews}" /> <input
+				type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
+				type="submit" value="${back_to_news_button}" />
+		</form>
+
 	</div>
 	<script>
 		document

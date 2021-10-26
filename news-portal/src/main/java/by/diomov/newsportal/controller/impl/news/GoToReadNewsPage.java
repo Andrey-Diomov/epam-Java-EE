@@ -25,12 +25,12 @@ public class GoToReadNewsPage implements Command {
 	private static final String PATH_TO_READ_NEWS_PAGE = "/WEB-INF/jsp/read_news_page.jsp";
 	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
 
-	private static final String COMMAND_WITH_PARAMETER = "Go_To_Read_News_Page&idNews=%s&favourite=%s";
+	private static final String COMMAND_WITH_PARAMETER = "Go_To_Read_News_Page&idNews=%s";
 	private static final String PATH = "path";
 	private static final String NEWS = "news";
 	private static final String ID_NEWS = "idNews";
 	private static final String USER = "user";
-	private static final String FAVOURITE = "favourite";
+	private static final String IS_USER_FAVOURITE_NEWS = "isUserFavouriteNews";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,10 +43,11 @@ public class GoToReadNewsPage implements Command {
 
 		try {
 			News news = newsService.get(idNews);
-			boolean favourite = newsService.isFavourite(userId, idNews);
+			boolean isUserFavouriteNews = newsService.isFavourite(userId, idNews);
+
 			request.setAttribute(NEWS, news);
-			request.setAttribute(FAVOURITE, favourite);
-			session.setAttribute(PATH, String.format(COMMAND_WITH_PARAMETER, idNews, favourite));
+			request.setAttribute(IS_USER_FAVOURITE_NEWS, isUserFavouriteNews);
+			session.setAttribute(PATH, String.format(COMMAND_WITH_PARAMETER, idNews));
 
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_READ_NEWS_PAGE);
 			requestDispatcher.forward(request, response);

@@ -54,7 +54,8 @@ public class GoToReadCommentsPage implements Command {
 			session.setAttribute(PATH, String.format(COMMAND_WITH_PARAMETER, newsId, pageNumber));
 			request.setAttribute(COMMENT, comments);
 			request.setAttribute(AMOUNT_PAGE, amountPage);
-
+			request.setAttribute(ID_NEWS, newsId);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_READ_COMMENTS_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

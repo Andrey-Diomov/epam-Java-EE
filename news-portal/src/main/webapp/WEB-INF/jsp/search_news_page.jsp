@@ -52,7 +52,7 @@
 				<form action="Controller" method="post">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_button}</button>
 				</form>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 
 		<form action="Controller" method="post">
 
-			<input type="hidden" name="command" value="search_news" /> <br />
+			<input type="hidden" name="command" value="SEARCH_NEWS" /> <br />
 			<!--  
 			<c:out value="${search}" />
 			-->
@@ -87,7 +87,7 @@
 
 			<form action="Controller" method="post">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
-					type="hidden" name="command" value="go_to_read_news_page" /> <input
+					type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 					type="submit" value="${read_button}" />
 			</form>
 

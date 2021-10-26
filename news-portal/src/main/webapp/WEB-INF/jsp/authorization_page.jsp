@@ -50,7 +50,7 @@
 					<input type="hidden" name="pageNumber" value="1" /> <input
 						type="hidden" name="messages" value="" />
 					<button class="main_button" type="submit" name="command"
-						value="go_to_main_page">${main_page_button}</button>
+						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
 				</form>
 			</div>
 		</div>
@@ -81,7 +81,7 @@
 			<h3 class="headline">
 				<c:out value="${table_header}" />
 			</h3>
-			<input type="hidden" name="command" value="sign_In" /> ${login} <br />
+			<input type="hidden" name="command" value="SIGN_IN" /> ${login} <br />
 			<input type="text" name="login" value="" /><br /> ${password} <br />
 			<input type="password" name="password" value="" /><br /> <input
 				type="submit" value="${send_button}" /><br />

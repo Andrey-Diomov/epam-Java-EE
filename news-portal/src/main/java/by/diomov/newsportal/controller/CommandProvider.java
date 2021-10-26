@@ -2,9 +2,6 @@ package by.diomov.newsportal.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import by.diomov.newsportal.controller.impl.ChangeLocal;
 import by.diomov.newsportal.controller.impl.LogOut;
 import by.diomov.newsportal.controller.impl.UnknownCommand;
@@ -26,14 +23,15 @@ import by.diomov.newsportal.controller.impl.news.UpdateNews;
 import by.diomov.newsportal.controller.impl.user.ChangePassword;
 import by.diomov.newsportal.controller.impl.user.GoToAuthorizationPage;
 import by.diomov.newsportal.controller.impl.user.GoToChangePassword;
-import by.diomov.newsportal.controller.impl.user.GoToListUsersPage;
 import by.diomov.newsportal.controller.impl.user.GoToRegistrationPage;
+import by.diomov.newsportal.controller.impl.user.GoToSearchUserPage;
 import by.diomov.newsportal.controller.impl.user.GoToUserProfile;
 import by.diomov.newsportal.controller.impl.user.RegistrationNewUser;
+import by.diomov.newsportal.controller.impl.user.SearchUser;
 import by.diomov.newsportal.controller.impl.user.SetAbilityToComment;
 import by.diomov.newsportal.controller.impl.user.SignIn;
 
-public class CommandProvider {	
+public class CommandProvider {
 	private Map<CommandName, Command> commands = new HashMap<>();
 
 	public CommandProvider() {
@@ -61,25 +59,15 @@ public class CommandProvider {
 		commands.put(CommandName.SEARCH_NEWS, new SearchNews());
 		commands.put(CommandName.CHANGE_PASSWORD, new ChangePassword());
 		commands.put(CommandName.GO_TO_CHANGE_PASSWORD_PAGE, new GoToChangePassword());
-		commands.put(CommandName.GO_TO_LIST_USERS_PAGE, new GoToListUsersPage());
+		commands.put(CommandName.GO_TO_SEARCH_USER_PAGE, new GoToSearchUserPage());
+		commands.put(CommandName.SEARCH_USER, new SearchUser());
 		commands.put(CommandName.SET_ABILITY_TO_COMMENT, new SetAbilityToComment());
 
 		commands.put(CommandName.UNKNOWN_COMMAND, new UnknownCommand());
 	}
 
 	public Command findCommand(String name) {
-//		if (name == null || name.isEmpty() || name.isBlank()) {
-//			name = CommandName.UNKNOWN_COMMAND.toString();
-//		}
-
 		CommandName commandName = CommandName.valueOf(name.toUpperCase());
-//		try {
-//			commandName = CommandName.valueOf(name.toUpperCase());
-//		} catch (IllegalArgumentException e) {
-//			log.error(e);
-//			commandName = CommandName.UNKNOWN_COMMAND;
-//		}
-
 		Command command = commands.get(commandName);
 		return command;
 	}

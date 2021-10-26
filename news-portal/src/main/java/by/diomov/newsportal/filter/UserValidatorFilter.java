@@ -26,7 +26,7 @@ public class UserValidatorFilter implements Filter {
 
 	private static final String PATH_TO_REGISTRATION_WITH_PARAMETER_LIST_MESSAGES = "Controller?command=Registration&list_messages=registration";
 	private static final String PATH_TO_REGISTRATION_WITH_MESSAGE = "Controller?command=Registration&message=%s";
-
+	private static final String PATH_TO_CHANGE_PASSWORD_PAGE_WITH_MESSAGE = "Controller?command=Go_To_Change_Password_Page&message=%s";
 	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
 
 	private static final String COMMAND = "command";
@@ -35,8 +35,9 @@ public class UserValidatorFilter implements Filter {
 	private static final String EMAIL = "eMail";
 	private static final String LOGIN = "login";
 	private static final String PASSWORD = "password";
+	private static final String NEW_PASSWORD = "new_password";
 	private static final String MESSAGES = "messages";
-
+ 
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
 
@@ -93,6 +94,24 @@ public class UserValidatorFilter implements Filter {
 					return;
 				}
 				break;
+
+			case CHANGE_PASSWORD:
+				password = req.getParameter(PASSWORD);
+				String newPassword = req.getParameter(NEW_PASSWORD);
+
+				if (!checkForValue(password, newPassword)) {
+					resp.sendRedirect(
+							String.format(PATH_TO_CHANGE_PASSWORD_PAGE_WITH_MESSAGE, LocalMessage.EMPTY_FIELDS));
+					return;
+				}
+
+				String message = validatePassword(password, newPassword);
+				if (message != null) {
+					resp.sendRedirect(
+							String.format(PATH_TO_CHANGE_PASSWORD_PAGE_WITH_MESSAGE, LocalMessage.PASSWORD_INVALID));
+					return;
+				}
+
 			default:
 				break;
 
@@ -108,33 +127,12 @@ public class UserValidatorFilter implements Filter {
 	public void destroy() {
 	}
 
-	private boolean checkForValue(String login, String password) {
-		if (login == null || login.isEmpty() || login.isBlank()) {
-			return false;
+	private boolean checkForValue(String... values) {
+		for (String value : values) {
+			if (value == null || value.isEmpty() || value.isBlank()) {
+				return false;
+			}
 		}
-		if (password == null || password.isEmpty() || password.isBlank()) {
-			return false;
-		}
-		return true;
-	}
-
-	private boolean checkForValue(String name, String surname, String eMail, String login, String password) {
-		if (!checkForValue(login, password)) {
-			return false;
-		}
-
-		if (eMail == null || eMail.isEmpty() || eMail.isBlank()) {
-			return false;
-		}
-
-		if (login == null || login.isEmpty() || login.isBlank()) {
-			return false;
-		}
-
-		if (password == null || password.isEmpty() || password.isBlank()) {
-			return false;
-		}
-
 		return true;
 	}
 
@@ -149,6 +147,15 @@ public class UserValidatorFilter implements Filter {
 			messages.add(LocalMessage.PASSWORD_INVALID);
 		}
 		return messages;
+	}
+
+	private static String validatePassword(String password, String newPassword) {
+		String message = null;
+
+		if (!(password.matches(PASSWORD_REGULAR_EXPRESSION) || newPassword.matches(PASSWORD_REGULAR_EXPRESSION))) {
+			return LocalMessage.PASSWORD_INVALID;
+		}
+		return message;
 	}
 
 	private static List<String> validateRegistrationInfo(String name, String surname, String eMail, String login,
