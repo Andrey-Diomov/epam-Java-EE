@@ -14,8 +14,7 @@ public class GoToAuthorizationPage implements Command {
 	private static final String PATH = "path";
 	
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
 		request.getSession(false).setAttribute(PATH, COMMAND);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_AUTHORIZATION_PAGE);
 		requestDispatcher.forward(request, response);

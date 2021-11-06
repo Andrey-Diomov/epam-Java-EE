@@ -32,7 +32,6 @@ public class AddNewsToFavourite implements Command {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute(USER);
-
 		int userId = user.getId();
 		int newsId = Integer.valueOf(request.getParameter(ID_NEWS));
 

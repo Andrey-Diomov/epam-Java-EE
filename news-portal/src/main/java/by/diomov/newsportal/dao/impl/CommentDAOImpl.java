@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import by.diomov.newsportal.bean.Comment;
-import by.diomov.newsportal.bean.Role;
-import by.diomov.newsportal.bean.User;
 import by.diomov.newsportal.dao.CommentDAO;
 import by.diomov.newsportal.dao.DAOException;
 import by.diomov.newsportal.dao.impl.connection.ConnectionPoolException;
@@ -20,18 +18,15 @@ public class CommentDAOImpl implements CommentDAO {
 	private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final String SQL_REQUEST_TO_INSERT = "INSERT INTO Comment(text, created, userId, newsId) VALUE(?,?,?,?)";
-	private static final String SQL_REQUEST_TO_SELECT_LIMITED_AMOUNT_BY_NEWS_ID = "SELECT Comment.id, text, created, userId, newsId, User.id, login, role  FROM Comment JOIN User ON Comment.userId = User.id WHERE newsId = ? LIMIT ?, ?";
+	private static final String SQL_REQUEST_TO_SELECT_LIMITED_AMOUNT_BY_NEWS_ID = "SELECT Comment.id, text, created, User.login FROM Comment JOIN User ON Comment.userId = User.id WHERE newsId = ? ORDER by comment.id DESC LIMIT ?, ? ";
 	private static final String SQL_REQUEST_TO_SELECT_AMOUNT_BY_NEWS_ID = "SELECT COUNT(*) AS amount FROM Comment WHERE newsId = ?";
 	private static final String SQL_REQUEST_TO_DELETE_COMMENTS_BY_NEWS_ID = "DELETE  FROM comment WHERE newsId = ?";
 
 	private static final String ID = "id";
 	private static final String TEXT_COMMENT = "text";
 	private static final String CREATED_COMMENT = "created";
-	private static final String USER_ID = "userId";
-	private static final String NEWS_ID = "newsId";
 	private static final String AMOUNT = "amount";
 	private static final String LOGIN_USER = "login";
-	private static final String ROLE_USER = "role";
 
 	@Override
 	public List<Comment> getLimitedAmountCommentsByNewsId(int start, int limit, int id) throws DAOException {
@@ -48,8 +43,7 @@ public class CommentDAOImpl implements CommentDAO {
 
 			while (rs.next()) {
 				Comment comment = new Comment(rs.getInt(ID), rs.getString(TEXT_COMMENT), rs.getDate(CREATED_COMMENT),
-						rs.getInt(USER_ID), rs.getInt(NEWS_ID), new User(rs.getInt(ID), rs.getString(LOGIN_USER),
-								Role.valueOf(rs.getString(ROLE_USER).toUpperCase())));
+						rs.getString(LOGIN_USER));
 				list.add(comment);
 			}
 			return list;

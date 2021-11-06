@@ -52,7 +52,7 @@
 			</div>
 
 			<div class="buttons-block">
-				<form action="Controller" method="POST">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
 						id="locale-select" name="local" onchange="this.form.submit()">
 						<option value="ru">${ru_button}</option>
@@ -63,14 +63,14 @@
 				<c:if test="${user.role =='GUEST'}">
 
 					<div class="registration_button">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type="hidden" name="command" value="REGISTRATION" /> <input
 								type="submit" name="command" value="${registration_button}" />
 						</form>
 					</div>
 
 					<div class="authorization_button">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type="hidden" name="command" value="AUTHORIZATION" /> <input
 								type="submit" name="command" value="${authorization_button}" />
 						</form>
@@ -80,7 +80,7 @@
 				</c:if>
 
 				<c:if test="${user.role == 'ADMIN'}">
-					<form action="Controller" method="post">
+					<form action="Controller" method="GET">
 						<input type="hidden" name="pageNumber" value="1" /> <input type=hidden
 							name="command" value="GO_TO_SEARCH_USER_PAGE" /> <input
 							type="submit" name="command" value="${users_button}" />
@@ -89,7 +89,7 @@
 
 				<c:if test="${user.role == 'EDITOR'}">
 					<div class="add_button">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type="hidden" name="command" value="GO_TO_ADD_NEWS_PAGE" />
 							<input type="submit" name="command" value="${add_button}" />
 						</form>
@@ -98,21 +98,21 @@
 			
 				<c:if test="${user.role !='GUEST'}">
 					<div class="log_out_button">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type=hidden name="command" value="LOG_OUT" /> <input
 								type="submit" name="command" value="${log_out_button}" />
 						</form>
 					</div>
 
 					<div class="view_profile">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type=hidden name="command" value="GO_TO_USER_PROFILE" />
 							<input type="submit" name="command" value="${user_profile}" />
 						</form>
 					</div>
 
 					<div class="favourite_news">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type="hidden" name="pageNumber" value="1" /> <input
 								type=hidden name="command" value="GO_TO_FAVOURITE_NEWS_PAGE" />
 							<input type="submit" name="command"
@@ -121,7 +121,7 @@
 					</div>
 
 					<div class="search_news">
-						<form action="Controller" method="post">
+						<form action="Controller" method="GET">
 							<input type=hidden name="command" value="GO_TO_SEARCH_NEWS_PAGE" />
 							<input type="submit" name="command" value="${search_news_button}" />
 						</form>
@@ -154,7 +154,7 @@
 				<c:out value="${news.brief}" />
 			</h3>
 			<c:if test="${user.role !='GUEST'}">
-				<form action="Controller" method="get">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="idNews" value="${news.id}" /> <input
 						type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 						type="submit" value="${read_button}" />

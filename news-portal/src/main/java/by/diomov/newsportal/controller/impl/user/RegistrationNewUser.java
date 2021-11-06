@@ -33,7 +33,6 @@ public class RegistrationNewUser implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String name = request.getParameter(NAME);
 		String surname = request.getParameter(SURNAME);
 		String eMail = request.getParameter(EMAIL);
@@ -48,7 +47,6 @@ public class RegistrationNewUser implements Command {
 				return;
 			}
 			response.sendRedirect(String.format(PATH_TO_REGISTRATION_WITH_MESSAGE, LocalMessage.USER_EXISTS));
-
 		} catch (ServiceException e) {
 			log.error("Error occurred while trying to registrate user, RegistrationNewUser.", e);
 			response.sendRedirect(String.format(PATH_TO_ERROR_PAGE_WITH_MESSAGE, LocalMessage.TEMPORARY_PROBLEMS));

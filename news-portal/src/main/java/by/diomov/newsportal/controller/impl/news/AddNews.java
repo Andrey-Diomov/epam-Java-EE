@@ -23,7 +23,6 @@ public class AddNews implements Command {
 
 	private static final String PATH_TO_MAIN_PAGE_WITH_PARAMETR = "Controller?command=Go_To_Main_Page&pageNumber=1";
 	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
-
 	private static final String USER = "user";
 	private static final String TITLE = "title";
 	private static final String BRIEF = "brief";
@@ -31,11 +30,9 @@ public class AddNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute(USER);
-
 		String title = request.getParameter(TITLE);
 		String brief = request.getParameter(BRIEF);
 		String content = request.getParameter(CONTENT);

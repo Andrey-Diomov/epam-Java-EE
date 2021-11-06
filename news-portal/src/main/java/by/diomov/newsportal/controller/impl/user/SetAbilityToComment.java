@@ -27,7 +27,6 @@ public class SetAbilityToComment implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		int userId = Integer.parseInt(request.getParameter(USER_ID));
 		boolean ability = Boolean.parseBoolean(request.getParameter(ABILITY));
 		int pageNumber = Integer.valueOf(request.getParameter(PAGE_NUMBER));

@@ -51,14 +51,14 @@
 				</h3>
 			</div>
 			<div class="buttons-block">
-				<form action="Controller" method="POST">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
 						id="locale-select" name="local" onchange="this.form.submit()">
 						<option value="ru">${ru_button}</option>
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
@@ -80,13 +80,13 @@
 			<c:out value="${news.content}" />
 		</p>
 
-		<form action="Controller" method="post">
+		<form action="Controller" method="GET">
 			<input type="hidden" name="idNews" value="${news.id}" /> <input
 				type="hidden" name="command" value="GO_TO_ADD_COMMENT_PAGE" /> <input
 				type="submit" value="${add_comment_button}" />
 		</form>
 
-		<form action="Controller" method="post">
+		<form action="Controller" method="GET">
 			<input type="hidden" name="idNews" value="${news.id}" /> <input
 				type="hidden" name="pageNumber" value=1 /> <input type="hidden"
 				name="command" value="GO_TO_READ_COMMENTS_PAGE" /> <input
@@ -94,7 +94,7 @@
 		</form>
 
 		<c:if test="${!isUserFavouriteNews}">
-			<form action="Controller" method="post">
+			<form action="Controller" method="POST">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
 					type="hidden" name="command" value="ADD_NEWS_TO_FAVOURITE" /> <input
 					type="submit" value="${add_to_favourite_button}" />
@@ -102,7 +102,7 @@
 		</c:if>
 
 		<c:if test="${isUserFavouriteNews}">
-			<form action="Controller" method="post">
+			<form action="Controller" method="POST">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
 					type="hidden" name="command" value="DELETE_NEWS_FROM_FAVOURITE" />
 				<input type="submit" value="${delete_from_favourite_button}" />
@@ -110,13 +110,13 @@
 		</c:if>
 
 		<c:if test="${user.role == 'EDITOR'}">
-			<form action="Controller" method="post">
+			<form action="Controller" method="POST">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
 					type="hidden" name="command" value="DELETE_NEWS" /> <input
 					type="submit" value="${delete_news_button}" />
 			</form>
 
-			<form action="Controller" method="post">
+			<form action="Controller" method="GET">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
 					type="hidden" name="command" value="GO_TO_UPDATE_NEWS_PAGE" /> <input
 					type="submit" value="${update_news_button}" />

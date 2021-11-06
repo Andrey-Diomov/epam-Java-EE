@@ -15,8 +15,7 @@ public class GoToChangePassword implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		
+		HttpSession session = request.getSession(false);		
 		session.setAttribute(PATH, COMMAND);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_CHANGE_PASSWORD_PAGE);
 		requestDispatcher.forward(request, response);

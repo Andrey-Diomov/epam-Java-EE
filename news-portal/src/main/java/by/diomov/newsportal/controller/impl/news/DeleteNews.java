@@ -25,7 +25,6 @@ public class DeleteNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		int idNews = Integer.parseInt(request.getParameter(ID_NEWS));
 		
 		try {

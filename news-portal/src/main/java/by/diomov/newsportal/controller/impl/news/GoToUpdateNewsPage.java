@@ -32,13 +32,13 @@ public class GoToUpdateNewsPage implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-
 		int idNews = Integer.parseInt(request.getParameter(ID_NEWS));
 
 		try {
 			News news = newsService.get(idNews);
 			request.setAttribute(NEWS, news);
 			session.setAttribute(PATH, String.format(COMMAND_WITH_PARAMETER, idNews));
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_UPDATE_NEWS_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

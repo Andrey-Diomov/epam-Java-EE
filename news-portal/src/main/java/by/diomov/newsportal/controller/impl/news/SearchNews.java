@@ -42,6 +42,7 @@ public class SearchNews implements Command {
 
 			session.setAttribute(PATH, String.format(PATH_TO_SEARCH_NEWS_PAGE_WITH_PARAMETR, searchWord));
 			request.setAttribute(NEWS, newsList);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_SEARCH_NEWS_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

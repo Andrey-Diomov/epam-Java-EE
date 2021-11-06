@@ -36,7 +36,6 @@ public class UpdateNews implements Command {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute(USER);
-
 		int newsId = Integer.valueOf(request.getParameter(ID_NEWS));
 		String title = request.getParameter(TITLE);
 		String brief = request.getParameter(BRIEF);
@@ -47,7 +46,6 @@ public class UpdateNews implements Command {
 			response.sendRedirect(String.format(PATH_TO_UPDATE_PAGE_WITH_PARAMETER_ID_NEWS, newsId));
 			return;
 		}
-
 		News news = new News(newsId, title, brief, content, userId);
 
 		try {

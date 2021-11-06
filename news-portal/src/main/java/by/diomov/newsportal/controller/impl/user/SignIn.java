@@ -33,7 +33,6 @@ public class SignIn implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-
 		String login = request.getParameter(LOGIN);
 		String password = request.getParameter(PASSWORD);
 

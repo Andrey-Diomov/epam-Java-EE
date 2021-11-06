@@ -51,14 +51,11 @@ public class SearchUser implements Command {
 			if (amountUsers % AMOUNT_USERS_ON_PAGE != 0) {
 				amountPage++;
 			}
-
 			session.setAttribute(PATH, String.format(PATH_TO_SEARCH_USER_PAGE_WITH_PARAMETER, pageNumber, ability));
-			request.setAttribute(USERS, users);
-			request.setAttribute(ABILITY, ability);
+			request.setAttribute(USERS, users);			
 			request.setAttribute(AMOUNT_PAGE, amountPage);
 			request.setAttribute(USERS_ON_PAGE, AMOUNT_USERS_ON_PAGE);
-			request.setAttribute(AMOUNT_ALL_USERS, amountUsers);
-			request.setAttribute(PAGE_NUMBER, pageNumber);
+			request.setAttribute(AMOUNT_ALL_USERS, amountUsers);			
 
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_SEARCH_USER_PAGE);
 			requestDispatcher.forward(request, response);

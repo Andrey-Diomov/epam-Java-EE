@@ -12,22 +12,26 @@ public class Comment implements Serializable {
 	private Date created;
 	private int userId;
 	private int newsId;
-	private User user;
+	private String userLogin;
 
 	public Comment() {
 	}
 
-	public Comment(int id, String text, Date created, int userId, int newsId, User user) {
+	public Comment(int id, String text, Date created, int userId, int newsId, String userLogin) {
 		this.id = id;
 		this.text = text;
 		this.created = created;
 		this.userId = userId;
 		this.newsId = newsId;
-		this.user = user;
+		this.userLogin = userLogin;
 	}
 
 	public Comment(String text, Date created, int userId, int newsId) {
 		this(0, text, created, userId, newsId, null);
+	}
+
+	public Comment(int id, String text, Date created, String userLogin) {
+		this(id, text, created, 0, 0, userLogin);
 	}
 
 	public int getId() {
@@ -70,12 +74,12 @@ public class Comment implements Serializable {
 		this.newsId = newsId;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserLogin() {
+		return userLogin;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
 	}
 
 	@Override
@@ -86,8 +90,8 @@ public class Comment implements Serializable {
 		result = prime * result + id;
 		result = prime * result + newsId;
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + userId;
+		result = prime * result + ((userLogin == null) ? 0 : userLogin.hashCode());
 		return result;
 	}
 
@@ -114,13 +118,13 @@ public class Comment implements Serializable {
 				return false;
 		} else if (!text.equals(other.text))
 			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
 		if (userId != other.userId)
 			return false;
+		if (userLogin == null) {
+			if (other.userLogin != null)
+				return false;
+		} else if (!userLogin.equals(other.userLogin))
+			return false;
 		return true;
-	}	
+	}
 }

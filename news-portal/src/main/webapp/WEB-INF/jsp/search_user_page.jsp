@@ -55,7 +55,7 @@
 
 			<div class="buttons-block">
 
-				<form action="Controller" method="POST">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
 						id="locale-select" name="local" onchange="this.form.submit()">
 						<option value="ru">${ru_button}</option>
@@ -63,21 +63,21 @@
 					</select>
 				</form>
 
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="pageNumber" value="1" /> <input
 						type="hidden" name="ability" value="false" />
 					<button class="main_button" type="submit" name="command"
 						value="SEARCH_USER">${blocked_users_button}</button>
 				</form>
 
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="pageNumber" value="1" /> <input
 						type="hidden" name="ability" value="true" />
 					<button class="main_button" type="submit" name="command"
 						value="SEARCH_USER">${unblocked_users_button}</button>
 				</form>
 
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
@@ -92,10 +92,10 @@
 		<c:if test="${users!=null}">
 			<br />
 			<c:choose>
-				<c:when test="${ability}">
+				<c:when test="${param.ability}">
 					<b><c:out value="${unblocked_users_header}" /></b>
 				</c:when>
-				<c:when test="${!ability}">
+				<c:when test="${!param.ability}">
 					<b><c:out value="${blocked_users_header}" /></b>
 				</c:when>
 			</c:choose>
@@ -111,15 +111,15 @@
 
 		<c:forEach var="user" items="${users}">
 
-			<form action="Controller" method="post">
+			<form action="Controller" method="POST">
 
-				<input type="hidden" name="pageNumber" value="${pageNumber}" /> <input
+				<input type="hidden" name="pageNumber" value="${param.pageNumber}" /> <input
 					type="hidden" name="command" value="SET_ABILITY_TO_COMMENT" />
-				<c:if test="${ability}">
+				<c:if test="${param.ability}">
 					<input type="hidden" name="ability" value="false" />
 					<input type="submit" value="${block_button}">
 				</c:if>
-				<c:if test="${!ability}">
+				<c:if test="${!param.ability}">
 					<input type="hidden" name="ability" value="true" />
 					<input type="submit" value="${unblock_button}">
 				</c:if>

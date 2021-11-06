@@ -35,8 +35,8 @@ public class AddComment implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		
 		User user = (User) session.getAttribute(USER);
-
 		int userId = user.getId();
 		int newsId = Integer.valueOf(request.getParameter(ID_NEWS));
 
@@ -48,10 +48,9 @@ public class AddComment implements Command {
 						String.format(PATH_TO_ADD_COMMENT_PAGE_WITH_PARAMETER, newsId, LocalMessage.USER_BLOCKED));
 				return;
 			}
-
-			String text = request.getParameter(TEXT);
-
+			String text = request.getParameter(TEXT);			
 			Comment comment = new Comment(text, new Date(), user.getId(), newsId);
+			
 			commentService.save(comment);
 			response.sendRedirect(String.format(PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER, newsId));
 		} catch (ServiceException e) {

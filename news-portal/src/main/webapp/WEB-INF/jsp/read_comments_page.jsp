@@ -37,14 +37,14 @@
 				</h3>
 			</div>
 			<div class="buttons-block">
-				<form action="Controller" method="POST">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
 						id="locale-select" name="local" onchange="this.form.submit()">
 						<option value="ru">${ru_button}</option>
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="GO_TO_MAIN_PAGE">${main_button}</button>
@@ -65,7 +65,7 @@
 		<br />
 		<c:forEach var="comment" items="${comments}">
 			<p>
-				<b> <c:out value="${comment.user.login}" /> <c:out
+				<b> <c:out value="${comment.userLogin}" /> <c:out
 						value="${comment.created}" />
 				</b>
 			</p>
@@ -76,8 +76,8 @@
 			<hr>
 		</c:forEach>
 
-		<form action="Controller" method="get">
-			<input type="hidden" name="idNews" value="${idNews}" /> <input
+		<form action="Controller" method="GET">
+			<input type="hidden" name="idNews" value="${param.idNews}" /> <input
 				type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 				type="submit" value="${back_to_news_button}" />
 		</form>
@@ -86,7 +86,7 @@
 			<c:forEach begin="1" end="${amountPage}" step="1" varStatus="i">
 				<c:url value="Controller?command=GO_TO_READ_COMMENTS_PAGE" var="url">
 					<c:param name="pageNumber" value="${i.index}" />
-					<c:param name="idNews" value="${idNews}" />
+					<c:param name="idNews" value="${param.idNews}" />
 				</c:url>
 				<a href="${url}">${i.index}</a>
 			</c:forEach>

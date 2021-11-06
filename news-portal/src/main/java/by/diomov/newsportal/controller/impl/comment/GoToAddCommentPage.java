@@ -18,8 +18,7 @@ public class GoToAddCommentPage implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 
-		String newsId = request.getParameter(ID_NEWS);
-		request.setAttribute(ID_NEWS, newsId);
+		String newsId = request.getParameter(ID_NEWS);		
 		session.setAttribute(PATH, String.format(PATH_TO_ADD_COMMENT_PAGE_WITH_PARAMETER, newsId));
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_ADD_COMMENT_PAGE);
 		requestDispatcher.forward(request, response);

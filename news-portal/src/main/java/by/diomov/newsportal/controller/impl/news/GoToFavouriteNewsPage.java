@@ -31,9 +31,9 @@ public class GoToFavouriteNewsPage implements Command {
 
 	private static final String PATH = "path";
 	private static final String USER = "user";
-	private static final String NEWS = "newsList";	
+	private static final String NEWS = "newsList";
 	private static final String PAGE_NUMBER = "pageNumber";
-	private static final int NEWS_ON_THE_PAGE = 2;	
+	private static final int NEWS_ON_THE_PAGE = 2;
 	private static final String AMOUNT_PAGE = "amountPage";
 
 	@Override
@@ -43,23 +43,19 @@ public class GoToFavouriteNewsPage implements Command {
 		User user = (User) session.getAttribute(USER);
 
 		try {
-
 			int pageNumber = Integer.valueOf(request.getParameter(PAGE_NUMBER));
 			int start = (pageNumber - 1) * NEWS_ON_THE_PAGE;
 
 			List<News> newsList = newsService.getFavouritesLimitedAmount(user.getId(), start, NEWS_ON_THE_PAGE);
-
 			int amountNews = newsService.getAmountFavouritesByUserId(user.getId());
-			
 			int amountPage = amountNews / NEWS_ON_THE_PAGE;
 			if (amountNews % NEWS_ON_THE_PAGE != 0) {
 				amountPage++;
 			}
-			
 			session.setAttribute(PATH, String.format(PATH_TO_FAVOURITE_NEWS_PAGE_WITH_PARAMETER, pageNumber));
 			request.setAttribute(NEWS, newsList);
 			request.setAttribute(AMOUNT_PAGE, amountPage);
-
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_FAVOURITE_NEWS_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

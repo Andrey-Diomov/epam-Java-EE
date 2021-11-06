@@ -34,14 +34,13 @@ public class GoToUserProfile implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-
 		User user = (User) session.getAttribute(USER);
 
 		try {
 			RegistrationInfo info = userService.getRegistrationInfo(user.getId());
-
 			session.setAttribute(PATH, COMMAND);
 			request.setAttribute(INFO, info);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_USER_PROFILE_PAGE);
 			requestDispatcher.forward(request, response);
 		} catch (ServiceException e) {

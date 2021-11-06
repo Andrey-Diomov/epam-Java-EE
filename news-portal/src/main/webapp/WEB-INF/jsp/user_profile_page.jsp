@@ -46,14 +46,14 @@
 				</h3>
 			</div>
 			<div class="buttons-block">
-				<form action="Controller" method="POST">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
 						id="locale-select" name="local" onchange="this.form.submit()">
 						<option value="ru">${ru_button}</option>
 						<option value="en">${en_button}</option>
 					</select>
 				</form>
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 				<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="GO_TO_MAIN_PAGE">${main_page_button}</button>
@@ -78,7 +78,7 @@
 		<h3>${login}</h3>
 		<c:out value="${info.login}" />
 		<br /> <br />
-		<form action="Controller" method="post">
+		<form action="Controller" method="GET">
 			<input type="hidden" name="command" value="GO_TO_CHANGE_PASSWORD_PAGE" /> <input
 				type="submit" value="${change_password_button}" />
 		</form>

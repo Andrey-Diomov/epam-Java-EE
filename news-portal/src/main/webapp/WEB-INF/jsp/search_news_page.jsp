@@ -41,7 +41,7 @@
 				</h3>
 			</div>
 			<div class="buttons-block">
-				<form action="Controller" method="POST">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="command" value="CHANGE_LOCAL" /> <select
 						id="locale-select" name="local" onchange="this.form.submit()">
 						<option value="ru">${ru_button}</option>
@@ -49,7 +49,7 @@
 					</select>
 				</form>
 				
-				<form action="Controller" method="post">
+				<form action="Controller" method="GET">
 					<input type="hidden" name="pageNumber" value="1" />
 					<button class="main_button" type="submit" name="command"
 						value="GO_TO_MAIN_PAGE">${main_button}</button>
@@ -60,16 +60,12 @@
 
 	<div class="main-content">
 
-		<form action="Controller" method="post">
+		<form action="Controller" method="GET">
 
-			<input type="hidden" name="command" value="SEARCH_NEWS" /> <br />
-			<!--  
-			<c:out value="${search}" />
-			-->
+			<input type="hidden" name="command" value="SEARCH_NEWS" /> <br />			
 			<c:out value="${search_message}" />
 			<br /> <input type="text" name="search_word" size="25"
 				required="required" /> <br />
-
 			<div>
 				<input type="submit" value="${search_news_button}" />
 			</div>
@@ -85,7 +81,7 @@
 				<c:out value="${news.brief}" />
 			</h3>
 
-			<form action="Controller" method="post">
+			<form action="Controller" method="GET">
 				<input type="hidden" name="idNews" value="${news.id}" /> <input
 					type="hidden" name="command" value="GO_TO_READ_NEWS_PAGE" /> <input
 					type="submit" value="${read_button}" />

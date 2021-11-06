@@ -24,7 +24,6 @@ public class GoToReadCommentsPage implements Command {
 
 	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
 	private static final String PATH_TO_READ_COMMENTS_PAGE = "/WEB-INF/jsp/read_comments_page.jsp";
-
 	private static final String COMMAND_WITH_PARAMETER = "Go_To_Read_Comments_Page&idNews=%s&pageNumber=%s";
 
 	private static final String PATH = "path";
@@ -50,11 +49,9 @@ public class GoToReadCommentsPage implements Command {
 			if (amountComments % COMMENTS_ON_THE_PAGE != 0) {
 				amountPage++;
 			}
-
 			session.setAttribute(PATH, String.format(COMMAND_WITH_PARAMETER, newsId, pageNumber));
 			request.setAttribute(COMMENT, comments);
-			request.setAttribute(AMOUNT_PAGE, amountPage);
-			request.setAttribute(ID_NEWS, newsId);
+			request.setAttribute(AMOUNT_PAGE, amountPage);			
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_READ_COMMENTS_PAGE);
 			requestDispatcher.forward(request, response);

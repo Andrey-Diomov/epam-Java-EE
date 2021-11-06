@@ -19,11 +19,9 @@ public class DeleteNewsFromFavourite implements Command {
 
 	private static final ServiceProvider provider = ServiceProvider.getInstance();
 	private static final NewsService newsService = provider.getNewsService();
-
-	private static final String PATH_TO_READ_FAVOURITE_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Favourite_News_Page&pageNumber=1";
+	
 	private static final String PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER = "Controller?command=Go_To_Read_News_Page&idNews=%s";
 	private static final String PATH_TO_ERROR_PAGE_WITH_MESSAGE = "Controller?command=Unknown_Command&message=%s";
-
 	private static final String USER = "user";
 	private static final String ID_NEWS = "idNews";
 
@@ -32,13 +30,11 @@ public class DeleteNewsFromFavourite implements Command {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute(USER);
-
 		int userId = user.getId();
 		int newsId = Integer.valueOf(request.getParameter(ID_NEWS));
 
 		try {
-			newsService.deleteFromFavourite(userId, newsId);
-			// response.sendRedirect(PATH_TO_READ_FAVOURITE_NEWS_PAGE_WITH_PARAMETR);
+			newsService.deleteFromFavourite(userId, newsId);			
 			response.sendRedirect(String.format(PATH_TO_READ_NEWS_PAGE_WITH_PARAMETER, newsId));
 		} catch (ServiceException e) {
 			log.error("Error when trying to add news to favourite.", e);

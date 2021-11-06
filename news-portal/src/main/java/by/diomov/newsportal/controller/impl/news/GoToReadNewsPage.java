@@ -38,7 +38,6 @@ public class GoToReadNewsPage implements Command {
 
 		User user = (User) session.getAttribute(USER);
 		int userId = user.getId();
-
 		int idNews = Integer.parseInt(request.getParameter(ID_NEWS));
 
 		try {

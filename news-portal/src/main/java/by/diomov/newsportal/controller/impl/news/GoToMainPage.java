@@ -27,8 +27,7 @@ public class GoToMainPage implements Command {
 	private static final String PATH_TO_MAIN_PAGE_WITH_PARAMETER = "Go_To_Main_Page&pageNumber=%s";
 
 	private static final String PATH = "path";
-	private static final String NEWS = "newsList";
-	private static final boolean FAVOURITE = false;
+	private static final String NEWS = "newsList";	
 	private static final int NEWS_ON_THE_PAGE = 2;
 	private static final String PAGE_NUMBER = "pageNumber";
 	private static final String AMOUNT_PAGE = "amountPage";

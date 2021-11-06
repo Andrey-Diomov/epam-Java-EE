@@ -36,7 +36,6 @@ public class ChangePassword implements Command {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute(USER);
-
 		int userId = user.getId();
 		String password = request.getParameter(PASSWORD);
 		String newPassword = request.getParameter(NEW_PASSWORD);
