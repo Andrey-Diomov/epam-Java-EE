@@ -1,6 +1,6 @@
 Приложение представляет собой новостной портал.
 
-При написании приложения использованы следующие технологии:
+При написании использованы следующие технологии:
 
 Servlets, Java Server Pages, Java Server Pages Standard Tag Library, The Java Database Connectivity API (JDBC).
 
